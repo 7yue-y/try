@@ -422,11 +422,11 @@ select, input {
 
 .editor-grid {
     display: grid;
-    grid-template-rows: repeat(13, 1fr); /* 13个音符行 */
-    grid-template-columns: repeat(16, 1fr); /* 16个时间单位 */
+    grid-template-rows: repeat(16, 1fr); /* 16个音符行从A3到C5 */
+    grid-template-columns: repeat(24, 1fr); /* 24个时间单位，6小节 */
     gap: 2px;
-    height: 390px; /* 13行 * 30px高度 */
-    border: 2px solid #c4d8e2; /* 加深网格边缘分界线 */
+    height: 400px; /* 16行 * 25px高度 */
+    border: 3px solid #8bb4c4; /* 进一步加深网格边缘分界线 */
     border-radius: 6px;
     padding: 2px;
     background-color: #e6f2f5; /* 网格背景色 */
@@ -450,9 +450,26 @@ select, input {
     background: #e6f2f5;
 }
 
-/* 每4个小节的分界线 */
+/* 八度分界线 - 在B和C音符之间 */
+.grid-cell[data-note="C4"],
+.grid-cell[data-note="C5"] {
+    border-top: 3px solid #a0c0d0; /* 八度分界线 */
+}
+
+/* 小节分界线 - 每4个时间单位（一个小节） */
+.grid-cell:nth-child(4n) {
+    border-right: 3px solid #a0c0d0; /* 小节分界线 */
+}
+
+/* 加深左侧#号音符背景色 */
+.note-label[data-note*="#"] {
+    background: #d1e3ea; /* 加深#号音符背景色 */
+    font-weight: 600; /* 加粗#号音符字体 */
+}
+
+/* 每4个小节的分界线（主要分界线） */
 .grid-cell:nth-child(16n) {
-    border-right: 2px solid #c4d8e2;
+    border-right: 4px solid #8bb4c4; /* 主要小节分界线 */
 }
 
 .collapsible-section {
