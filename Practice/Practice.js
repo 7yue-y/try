@@ -386,37 +386,55 @@ function loadPreset() {
         presetNotes = [
             {note: 'C4', time: 0}, {note: 'D4', time: 1}, {note: 'E4', time: 2}, 
             {note: 'F4', time: 3}, {note: 'G4', time: 4}, {note: 'A4', time: 5}, 
-            {note: 'B4', time: 6}, {note: 'C5', time: 7}
+            {note: 'B4', time: 6}, {note: 'C5', time: 7},
+            {note: 'D5', time: 8}, {note: 'E5', time: 9}, {note: 'F#4', time: 10}, 
+            {note: 'G#4', time: 11}, {note: 'A5', time: 12}, {note: 'B5', time: 13}, 
+            {note: 'C6', time: 14}
         ];
     } else if (currentPreset === 'C旋律大调(下行)') {
         presetNotes = [
-            {note: 'C5', time: 0}, {note: 'B4', time: 1}, {note: 'A4', time: 2}, 
-            {note: 'G4', time: 3}, {note: 'F4', time: 4}, {note: 'E4', time: 5}, 
-            {note: 'D4', time: 6}, {note: 'C4', time: 7}
+            {note: 'C6', time: 0}, {note: 'B5', time: 1}, {note: 'A5', time: 2}, 
+            {note: 'G4', time: 3}, {note: 'F4', time: 4}, {note: 'E5', time: 5}, 
+            {note: 'D5', time: 6}, {note: 'C5', time: 7},
+            {note: 'B4', time: 8}, {note: 'A4', time: 9}, {note: 'G4', time: 10}, 
+            {note: 'F4', time: 11}, {note: 'E4', time: 12}, {note: 'D4', time: 13}, 
+            {note: 'C4', time: 14}
         ];
     } else if (currentPreset === 'a自然小调') {
         presetNotes = [
             {note: 'A3', time: 0}, {note: 'B3', time: 1}, {note: 'C4', time: 2}, 
             {note: 'D4', time: 3}, {note: 'E4', time: 4}, {note: 'F4', time: 5}, 
-            {note: 'G4', time: 6}, {note: 'A4', time: 7}
+            {note: 'G4', time: 6}, {note: 'A4', time: 7},
+            {note: 'B4', time: 8}, {note: 'C5', time: 9}, {note: 'D5', time: 10}, 
+            {note: 'E5', time: 11}, {note: 'F5', time: 12}, {note: 'G5', time: 13}, 
+            {note: 'A5', time: 14}
         ];
     } else if (currentPreset === 'a和声小调') {
         presetNotes = [
             {note: 'A3', time: 0}, {note: 'B3', time: 1}, {note: 'C4', time: 2}, 
             {note: 'D4', time: 3}, {note: 'E4', time: 4}, {note: 'F4', time: 5}, 
-            {note: 'G#4', time: 6}, {note: 'A4', time: 7}
+            {note: 'G#4', time: 6}, {note: 'A4', time: 7},
+            {note: 'B4', time: 8}, {note: 'C5', time: 9}, {note: 'D5', time: 10}, 
+            {note: 'E5', time: 11}, {note: 'F5', time: 12}, {note: 'G#5', time: 13}, 
+            {note: 'A5', time: 14}
         ];
     } else if (currentPreset === 'a旋律小调(上行)') {
         presetNotes = [
             {note: 'A3', time: 0}, {note: 'B3', time: 1}, {note: 'C4', time: 2}, 
             {note: 'D4', time: 3}, {note: 'E4', time: 4}, {note: 'F#4', time: 5}, 
-            {note: 'G#4', time: 6}, {note: 'A4', time: 7}
+            {note: 'G#4', time: 6}, {note: 'A4', time: 7},
+            {note: 'B4', time: 8}, {note: 'C5', time: 9}, {note: 'D5', time: 10}, 
+            {note: 'E5', time: 11}, {note: 'F#5', time: 12}, {note: 'G#5', time: 13}, 
+            {note: 'A5', time: 14}
         ];
     } else if (currentPreset === 'a旋律小调(下行)') {
         presetNotes = [
-            {note: 'A4', time: 0}, {note: 'G4', time: 1}, {note: 'F4', time: 2}, 
-            {note: 'E4', time: 3}, {note: 'D4', time: 4}, {note: 'C4', time: 5}, 
-            {note: 'B3', time: 6}, {note: 'A3', time: 7}
+            {note: 'A5', time: 0}, {note: 'G5', time: 1}, {note: 'F5', time: 2}, 
+            {note: 'E5', time: 3}, {note: 'D5', time: 4}, {note: 'C5', time: 5}, 
+            {note: 'B4', time: 6}, {note: 'A4', time: 7},
+            {note: 'G4', time: 8}, {note: 'F4', time: 9}, {note: 'E4', time: 10}, 
+            {note: 'D4', time: 11}, {note: 'C4', time: 12}, {note: 'B3', time: 13}, 
+            {note: 'A3', time: 14}
         ];
     }
     
