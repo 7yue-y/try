@@ -151,15 +151,32 @@ function addNoteToEditor(note) {
     }
 }
 
+// 初始化钢琴音源
+function initPianoSound() {
+    // 使用更真实的钢琴音色
+    synth = new Tone.Sampler({
+        urls: {
+            "C4": "C4.mp3",
+            "D#4": "Ds4.mp3", 
+            "F#4": "Fs4.mp3",
+            "A4": "A4.mp3",
+        },
+        baseUrl: "https://tonejs.github.io/audio/salamander/",
+        onload: () => {
+            console.log("钢琴音源加载完成");
+        }
+    }).toDestination();
+}
+
 // 播放音符
 function playNote(note) {
     if (!synth) {
-        synth = new Tone.Synth().toDestination();
+        initPianoSound();
     }
     
     // 将音符转换为频率
     const frequency = Tone.Frequency(note).toFrequency();
-    synth.triggerAttackRelease(frequency, "8n");
+    synth.triggerAttackRelease(note, "8n");
     
     // 更新显示
     const noteDisplay = document.getElementById('currentNote');
@@ -380,25 +397,25 @@ function loadPreset() {
     } else if (currentPreset === 'a自然小调') {
         presetNotes = [
             {note: 'A3', time: 0}, {note: 'B3', time: 1}, {note: 'C4', time: 2}, 
-            {note: 'D3', time: 3}, {note: 'E3', time: 4}, {note: 'F3', time: 5}, 
-            {note: 'G3', time: 6}, {note: 'A3', time: 7}
+            {note: 'D4', time: 3}, {note: 'E4', time: 4}, {note: 'F4', time: 5}, 
+            {note: 'G4', time: 6}, {note: 'A4', time: 7}
         ];
     } else if (currentPreset === 'a和声小调') {
         presetNotes = [
             {note: 'A3', time: 0}, {note: 'B3', time: 1}, {note: 'C4', time: 2}, 
-            {note: 'D3', time: 3}, {note: 'E3', time: 4}, {note: 'F3', time: 5}, 
-            {note: 'G#3', time: 6}, {note: 'A3', time: 7}
+            {note: 'D4', time: 3}, {note: 'E4', time: 4}, {note: 'F4', time: 5}, 
+            {note: 'G#4', time: 6}, {note: 'A4', time: 7}
         ];
     } else if (currentPreset === 'a旋律小调(上行)') {
         presetNotes = [
             {note: 'A3', time: 0}, {note: 'B3', time: 1}, {note: 'C4', time: 2}, 
-            {note: 'D3', time: 3}, {note: 'E3', time: 4}, {note: 'F#3', time: 5}, 
-            {note: 'G#3', time: 6}, {note: 'A3', time: 7}
+            {note: 'D4', time: 3}, {note: 'E4', time: 4}, {note: 'F#4', time: 5}, 
+            {note: 'G#4', time: 6}, {note: 'A4', time: 7}
         ];
     } else if (currentPreset === 'a旋律小调(下行)') {
         presetNotes = [
-            {note: 'A3', time: 0}, {note: 'G3', time: 1}, {note: 'F3', time: 2}, 
-            {note: 'E3', time: 3}, {note: 'D3', time: 4}, {note: 'C4', time: 5}, 
+            {note: 'A4', time: 0}, {note: 'G4', time: 1}, {note: 'F4', time: 2}, 
+            {note: 'E4', time: 3}, {note: 'D4', time: 4}, {note: 'C4', time: 5}, 
             {note: 'B3', time: 6}, {note: 'A3', time: 7}
         ];
     }
