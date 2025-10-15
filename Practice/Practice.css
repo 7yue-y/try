@@ -703,9 +703,9 @@ select, input {
     flex-direction: column;
     position: absolute;
     top: 100%;
-    right: 20px; /* 从右侧按钮下方展开 */
+    right: 15px; /* 从右侧按钮下方展开 */
     left: auto;
-    width: 200px;
+    width: 180px;
     background-color: #4a7694;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     z-index: 1001;
@@ -715,7 +715,7 @@ select, input {
 
 .nav-list.nav-active {
     display: flex !important;
-    right: 20px; /* 确保激活时从右侧按钮下方展开 */
+    right: 15px; /* 确保激活时从右侧按钮下方展开 */
     left: auto;
 }
     
@@ -837,25 +837,27 @@ select, input {
     }
     
     .editor-grid {
-        grid-template-columns: repeat(16, 20px);
-        grid-template-rows: repeat(25, 20px); /* 25行音符从C3到C5 */
-        height: 500px; /* 25行 * 20px高度 + 24个间隙 * 1px */
+        grid-template-columns: repeat(24, 16px); /* 24个时间单位，6小节 */
+        grid-template-rows: repeat(16, 20px); /* 16个音符行从A3到C5 */
+        height: 320px; /* 16行 * 20px高度 */
         gap: 1px;
+        border: 3px solid #8bb4c4;
+        padding: 1px;
     }
 
     .grid-cell {
-        width: 20px;
+        width: 16px;
         height: 20px;
     }
 
     .note-label {
         height: 20px;
-        font-size: 0.6rem;
+        font-size: 0.55rem;
         margin-bottom: 1px; /* 与网格间隙匹配 */
     }
 
     .note-labels {
-        height: 500px; /* 与编辑器网格高度精确匹配 */
+        height: 320px; /* 与编辑器网格高度精确匹配 */
     }
     
     .note-display {
@@ -948,23 +950,25 @@ select, input {
     }
     
     .editor-grid {
-        grid-template-columns: repeat(16, 18px);
-        grid-template-rows: repeat(25, 18px); /* 25行音符从C3到C5 */
-        height: 450px; /* 25行 * 18px高度 + 24个间隙 * 1px */
+        grid-template-columns: repeat(24, 14px); /* 24个时间单位，6小节 */
+        grid-template-rows: repeat(16, 18px); /* 16个音符行从A3到C5 */
+        height: 288px; /* 16行 * 18px高度 */
+        border: 2px solid #8bb4c4;
+        padding: 1px;
     }
     
     .grid-cell {
-        width: 18px;
+        width: 14px;
         height: 18px;
     }
     
     .note-label {
         height: 18px;
-        font-size: 0.55rem;
+        font-size: 0.5rem;
     }
     
     .note-labels {
-        height: 450px; /* 与编辑器网格高度精确匹配 */
+        height: 288px; /* 与编辑器网格高度精确匹配 */
     }
     
     .note-display {
@@ -1037,23 +1041,25 @@ select, input {
     }
     
     .editor-grid {
-        grid-template-columns: repeat(16, 16px);
-        grid-template-rows: repeat(25, 16px); /* 25行音符从C3到C5 */
-        height: 424px; /* 25行 * 16px高度 + 24个间隙 * 1px */
+        grid-template-columns: repeat(24, 12px); /* 24个时间单位，6小节 */
+        grid-template-rows: repeat(16, 16px); /* 16个音符行从A3到C5 */
+        height: 256px; /* 16行 * 16px高度 */
+        border: 2px solid #8bb4c4;
+        padding: 1px;
     }
     
     .grid-cell {
-        width: 16px;
+        width: 12px;
         height: 16px;
     }
     
     .note-label {
         height: 16px;
-        font-size: 0.5rem;
+        font-size: 0.45rem;
     }
     
     .note-labels {
-        height: 424px; /* 与编辑器网格高度精确匹配 */
+        height: 256px; /* 与编辑器网格高度精确匹配 */
     }
     
     .note-display {
