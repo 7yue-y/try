@@ -85,7 +85,7 @@ body {
 
 /* 桌面端导航列表样式 */
 .nav-list {
-    display: none;
+    display: none; /* 默认隐藏导航列表 */
     position: absolute;
     top: 100%;
     right: 0;
@@ -100,7 +100,7 @@ body {
 }
 
 .nav-list.nav-active {
-    display: block;
+    display: block; /* 只在激活时显示 */
 }
 
 .nav-list li {
@@ -503,37 +503,22 @@ select, input {
     }
     
     .site-title h1 {
-        font-size: 1.3rem;
+        font-size: 1.1rem; /* 进一步减小字体大小以适应移动端 */
         margin: 0;
+        line-height: 1.2;
+        padding: 0 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
     }
     
     .left-nav, .right-nav {
-        width: 45%;
-        display: flex;
-        align-items: center;
+        display: none !important; /* 在移动端隐藏水平导航栏 */
     }
     
-    .left-nav {
-        justify-content: flex-start;
-    }
-    
-    .right-nav {
-        justify-content: flex-end;
-        position: relative;
-    }
-    
-    .left-nav ul, .right-nav ul {
-        flex-direction: row;
-        gap: 8px;
-        margin: 0;
-    }
-    
-    .left-nav a, .right-nav a {
-        padding: 8px 12px;
-        font-size: 0.9rem;
-        display: block;
-        text-align: center;
-        white-space: nowrap;
+    .nav-toggle {
+        display: flex !important; /* 确保汉堡菜单显示 */
     }
     
     /* 移动端汉堡菜单样式 */
@@ -628,11 +613,13 @@ select, input {
     }
     
     .page-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.4rem; /* 调整页面标题大小 */
+        margin-bottom: 5px;
     }
     
     .subtitle {
-        font-size: 0.9rem;
+        font-size: 0.85rem; /* 调整副标题大小 */
+        line-height: 1.3;
     }
     
     .control-panel {
@@ -736,10 +723,12 @@ select, input {
     
     .main-header {
         padding: 6px 10px;
+        height: 70px; /* 调整导航栏高度 */
     }
     
     .site-title h1 {
-        font-size: 1.1rem;
+        font-size: 1rem; /* 进一步减小标题大小 */
+        margin-bottom: 5px;
     }
     
     .container {
@@ -754,11 +743,11 @@ select, input {
     }
     
     .page-header h1 {
-        font-size: 1.3rem;
+        font-size: 1.2rem; /* 调整页面标题大小 */
     }
     
     .subtitle {
-        font-size: 0.8rem;
+        font-size: 0.75rem; /* 调整副标题大小 */
     }
     
     .panel {
@@ -832,10 +821,11 @@ select, input {
     
     .main-header {
         padding: 5px 8px;
+        height: 65px; /* 进一步调整导航栏高度 */
     }
     
     .site-title h1 {
-        font-size: 1rem;
+        font-size: 0.9rem; /* 在超小屏幕上进一步减小标题 */
     }
     
     .container {
@@ -845,7 +835,7 @@ select, input {
     }
     
     .page-header h1 {
-        font-size: 1.2rem;
+        font-size: 1.1rem; /* 在超小屏幕上调整页面标题 */
     }
     
     .piano {
