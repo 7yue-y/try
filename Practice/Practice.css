@@ -1110,26 +1110,3 @@ select, input {
     }
 }
 
-/* 横屏模式优化 */
-@media (max-width: 768px) and (orientation: landscape) {
-    .piano {
-        height: 80px;
-        min-width: 400px;
-    }
-    
-    .editor-grid {
-        height: 200px;
-    }
-    
-    .header {
-        padding: 6px 10px;
-    }
-    
-    .nav-brand {
-        margin-bottom: 5px;
-    }
-    
-    .nav-brand h1 {
-        font-size: 1rem;
-    }
-}
