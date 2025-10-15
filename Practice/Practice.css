@@ -786,8 +786,8 @@ select, input {
     
     .editor-grid {
         grid-template-columns: repeat(16, 20px);
-        grid-template-rows: repeat(13, 20px); /* 固定行高确保对齐 */
-        height: 272px; /* 13行 * 20px高度 + 12个间隙 * 1px */
+        grid-template-rows: repeat(25, 20px); /* 25行音符从C3到C5 */
+        height: 500px; /* 25行 * 20px高度 + 24个间隙 * 1px */
         gap: 1px;
     }
 
@@ -803,7 +803,7 @@ select, input {
     }
 
     .note-labels {
-        height: 272px; /* 与编辑器网格高度精确匹配 */
+        height: 500px; /* 与编辑器网格高度精确匹配 */
     }
     
     .note-display {
@@ -897,7 +897,8 @@ select, input {
     
     .editor-grid {
         grid-template-columns: repeat(16, 18px);
-        height: 234px; /* 13行 * 18px高度 */
+        grid-template-rows: repeat(25, 18px); /* 25行音符从C3到C5 */
+        height: 450px; /* 25行 * 18px高度 + 24个间隙 * 1px */
     }
     
     .grid-cell {
@@ -908,6 +909,10 @@ select, input {
     .note-label {
         height: 18px;
         font-size: 0.55rem;
+    }
+    
+    .note-labels {
+        height: 450px; /* 与编辑器网格高度精确匹配 */
     }
     
     .note-display {
@@ -981,7 +986,8 @@ select, input {
     
     .editor-grid {
         grid-template-columns: repeat(16, 16px);
-        height: 208px; /* 13行 * 16px高度 */
+        grid-template-rows: repeat(25, 16px); /* 25行音符从C3到C5 */
+        height: 424px; /* 25行 * 16px高度 + 24个间隙 * 1px */
     }
     
     .grid-cell {
@@ -992,6 +998,10 @@ select, input {
     .note-label {
         height: 16px;
         font-size: 0.5rem;
+    }
+    
+    .note-labels {
+        height: 424px; /* 与编辑器网格高度精确匹配 */
     }
     
     .note-display {

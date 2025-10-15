@@ -78,13 +78,16 @@ function createMIDIEditor() {
     editorGrid.innerHTML = '';
     noteLabels.innerHTML = '';
     
-    // 创建音高标签 (从C4到C5，一个八度，从低到高)
-    const notes = ['C4', 'C#4', 'D4', 'D#4', 'E4', 'F4', 'F#4', 'G4', 'G#4', 'A4', 'A#4', 'B4', 'C5'];
+    // 创建音高标签 (从C3到C5，两个八度，从低到高)
+    const notes = [
+        'C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3', 'A#3', 'B3',
+        'C4', 'C#4', 'D4', 'D#4', 'E4', 'F4', 'F#4', 'G4', 'G#4', 'A4', 'A#4', 'B4', 'C5'
+    ];
     
     // 创建时间轴 (4小节 * 4拍 = 16个时间单位)
     const timeUnits = 16;
     
-    // 添加音高标签（从低到高，所以C4在最下面，C5在最上面）
+    // 添加音高标签（从低到高，所以C3在最下面，C5在最上面）
     notes.forEach(note => {
         const label = document.createElement('div');
         label.className = 'note-label';
@@ -94,8 +97,8 @@ function createMIDIEditor() {
     });
     
     // 添加网格单元格（从低到高排列）
-    // 使用grid-template-rows: repeat(13, 1fr)来创建13行
-    // 每行对应一个音符，从C4到C5
+    // 使用grid-template-rows: repeat(25, 1fr)来创建25行
+    // 每行对应一个音符，从C3到C5
     for (let i = 0; i < notes.length; i++) {
         for (let j = 0; j < timeUnits; j++) {
             const cell = document.createElement('div');
