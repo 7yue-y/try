@@ -46,67 +46,84 @@ body {
     margin: 0;
 }
 
-/* 下拉菜单样式 */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-toggle {
+/* 桌面端汉堡菜单样式 */
+.nav-toggle {
+    display: flex;
     background: none;
     border: 1px solid rgba(255, 255, 255, 0.5);
-    color: white;
-    padding: 8px 15px;
     border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    position: relative;
     cursor: pointer;
-    transition: all 0.3s;
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.dropdown-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+.hamburger-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: white;
+    margin: 3px 0;
+    transition: all 0.3s ease;
 }
 
-.dropdown-menu {
+.hamburger-line.active:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-line.active:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-line.active:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* 桌面端导航列表样式 */
+.nav-list {
     display: none;
     position: absolute;
+    top: 100%;
     right: 0;
-    background-color: white;
+    background: white;
     min-width: 180px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     z-index: 1000;
     margin-top: 5px;
+    list-style: none;
+    padding: 0;
 }
 
-.dropdown-menu li {
+.nav-list.nav-active {
+    display: block;
+}
+
+.nav-list li {
     border-bottom: 1px solid #f0f0f0;
 }
 
-.dropdown-menu li:last-child {
+.nav-list li:last-child {
     border-bottom: none;
 }
 
-.dropdown-menu a {
+.nav-list a {
     display: block;
     color: #444;
-    padding: 10px 15px;
+    padding: 12px 15px;
     text-decoration: none;
     transition: background-color 0.3s;
+    text-align: left;
 }
 
-.dropdown-menu a:hover {
+.nav-list a:hover {
     background-color: #f0f0f0;
     color: #5d8aa8;
 }
-
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
-    
-    /* 移动端下拉菜单点击激活 */
-    .dropdown.active .dropdown-menu {
-        display: block;
-    }
 
 .container {
     max-width: 1400px;
@@ -521,7 +538,7 @@ select, input {
     
     /* 移动端汉堡菜单样式 */
     .nav-toggle {
-        display: block;
+        display: flex; /* 在移动端显示汉堡菜单 */
         background: none;
         border: 1px solid rgba(255, 255, 255, 0.5);
         border-radius: 4px;
@@ -554,6 +571,11 @@ select, input {
     
     .hamburger-line.active:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* 移动端隐藏桌面端下拉菜单 */
+    .dropdown {
+        display: none !important;
     }
     
     /* 移动端导航列表样式 */
@@ -596,35 +618,6 @@ select, input {
     .nav-list a:hover {
         background-color: #f0f0f0;
         color: #5d8aa8;
-    }
-    
-    /* 移动端隐藏桌面端下拉菜单 */
-    .dropdown {
-        display: none;
-    }
-    
-    /* 移动端下拉菜单改进 */
-    .dropdown-menu {
-        position: fixed;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        min-width: auto;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        border-radius: 0;
-    }
-    
-    .dropdown-menu li {
-        border-bottom: 1px solid #f0f0f0;
-    }
-    
-    .dropdown-menu li:last-child {
-        border-bottom: none;
-    }
-    
-    .dropdown-menu a {
-        padding: 12px 15px;
-        text-align: center;
     }
     
     .container {

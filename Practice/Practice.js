@@ -443,12 +443,13 @@ function initializeNavigation() {
         }
     });
     
-    // 响应式导航栏切换功能
+    // 汉堡菜单导航切换功能（适用于所有设备）
     const navToggle = document.getElementById('navToggle');
     const navList = document.getElementById('navList');
     
     if (navToggle && navList) {
-        navToggle.addEventListener('click', function() {
+        navToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
             navList.classList.toggle('nav-active');
             
             // 汉堡菜单动画
@@ -458,19 +459,41 @@ function initializeNavigation() {
             });
         });
         
-        // 移动端点击链接后关闭菜单
+        // 点击链接后关闭菜单（移动端和桌面端都适用）
+        const navLinks = document.querySelectorAll('.nav-list a');
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    navList.classList.remove('nav-active');
-                    const hamburgerLines = navToggle.querySelectorAll('.hamburger-line');
-                    hamburgerLines.forEach(line => {
-                        line.classList.remove('active');
-                    });
-                }
+                navList.classList.remove('nav-active');
+                const hamburgerLines = navToggle.querySelectorAll('.hamburger-line');
+                hamburgerLines.forEach(line => {
+                    line.classList.remove('active');
+                });
             });
         });
+        
+        // 点击其他地方关闭菜单
+        document.addEventListener('click', function(e) {
+            if (!navToggle.contains(e.target) && !navList.contains(e.target)) {
+                navList.classList.remove('nav-active');
+                const hamburgerLines = navToggle.querySelectorAll('.hamburger-line');
+                hamburgerLines.forEach(line => {
+                    line.classList.remove('active');
+                });
+            }
+        });
     }
+    
+    // 窗口大小变化时重置导航状态
+    window.addEventListener('resize', function() {
+        // 在窗口大小变化时确保导航菜单关闭
+        if (navList) {
+            navList.classList.remove('nav-active');
+            const hamburgerLines = navToggle?.querySelectorAll('.hamburger-line');
+            hamburgerLines?.forEach(line => {
+                line.classList.remove('active');
+            });
+        }
+    });
 }
 
 // 初始化页面
