@@ -742,23 +742,23 @@ select, input {
     .editor-grid {
         grid-template-columns: repeat(16, 20px);
         grid-template-rows: repeat(13, 20px); /* 固定行高确保对齐 */
-        height: 260px; /* 13行 * 20px高度 */
+        height: 272px; /* 13行 * 20px高度 + 12个间隙 * 1px */
         gap: 1px;
     }
-    
+
     .grid-cell {
         width: 20px;
         height: 20px;
     }
-    
+
     .note-label {
         height: 20px;
         font-size: 0.6rem;
-        margin-bottom: 1px; /* 减少边距以匹配网格间隙 */
+        margin-bottom: 1px; /* 与网格间隙匹配 */
     }
-    
+
     .note-labels {
-        height: 260px; /* 与编辑器网格高度匹配 */
+        height: 272px; /* 与编辑器网格高度精确匹配 */
     }
     
     .note-display {
