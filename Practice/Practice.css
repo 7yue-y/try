@@ -99,9 +99,14 @@ body {
     color: #5d8aa8;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    
+    /* 移动端下拉菜单点击激活 */
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
 
 .container {
     max-width: 1400px;
@@ -458,11 +463,11 @@ select, input {
 @media (max-width: 768px) {
     body {
         padding: 0;
-        padding-top: 70px; /* 为固定导航栏留出空间 */
+        padding-top: 80px; /* 增加顶部内边距以适应固定导航栏 */
     }
     
     .main-header {
-        padding: 8px 12px;
+        padding: 10px 15px;
         flex-wrap: wrap;
         position: fixed;
         top: 0;
@@ -470,41 +475,132 @@ select, input {
         width: 100%;
         z-index: 1000;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        height: 80px; /* 固定导航栏高度 */
     }
     
     .site-title {
         order: -1;
         width: 100%;
         text-align: center;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
     
     .site-title h1 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        margin: 0;
     }
     
     .left-nav, .right-nav {
-        width: 50%;
+        width: 45%;
+        display: flex;
+        align-items: center;
     }
     
     .left-nav {
-        text-align: left;
+        justify-content: flex-start;
     }
     
     .right-nav {
-        text-align: right;
+        justify-content: flex-end;
+        position: relative;
     }
     
     .left-nav ul, .right-nav ul {
-        flex-direction: column;
-        gap: 5px;
+        flex-direction: row;
+        gap: 8px;
+        margin: 0;
     }
     
     .left-nav a, .right-nav a {
-        padding: 6px 10px;
-        font-size: 0.8rem;
+        padding: 8px 12px;
+        font-size: 0.9rem;
         display: block;
         text-align: center;
+        white-space: nowrap;
+    }
+    
+    /* 移动端汉堡菜单样式 */
+    .nav-toggle {
+        display: block;
+        background: none;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 4px;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .hamburger-line {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: white;
+        margin: 3px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .hamburger-line.active:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger-line.active:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger-line.active:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* 移动端导航列表样式 */
+    .nav-list {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        min-width: 180px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        z-index: 1000;
+        margin-top: 5px;
+        list-style: none;
+        padding: 0;
+    }
+    
+    .nav-list.nav-active {
+        display: block;
+    }
+    
+    .nav-list li {
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .nav-list li:last-child {
+        border-bottom: none;
+    }
+    
+    .nav-list a {
+        display: block;
+        color: #444;
+        padding: 12px 15px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        text-align: left;
+    }
+    
+    .nav-list a:hover {
+        background-color: #f0f0f0;
+        color: #5d8aa8;
+    }
+    
+    /* 移动端隐藏桌面端下拉菜单 */
+    .dropdown {
+        display: none;
     }
     
     /* 移动端下拉菜单改进 */
