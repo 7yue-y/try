@@ -12,7 +12,7 @@ body {
     padding: 0;
 }
 
-/* 顶部导航栏样式 - 采用首页模式 */
+/* 顶部导航栏样式 - 重新设计布局 */
 .header {
     background-color: #4a7694; /* 使用首页的深蓝色 */
     color: white;
@@ -28,10 +28,33 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between; /* 确保元素分布在两端 */
     padding: 12px 20px;
     position: relative;
+}
+
+/* 导航栏左侧区域 - 包含返回主页链接 */
+.navbar-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+/* 导航栏中间区域 - 包含品牌标题 */
+.navbar-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+/* 导航栏右侧区域 - 包含汉堡菜单 */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
 }
 
 .nav-brand h1 {
@@ -40,6 +63,7 @@ body {
     margin: 0;
     color: white;
     white-space: nowrap;
+    text-align: center;
 }
 
 /* 桌面端也使用汉堡菜单，隐藏水平导航列表 */
@@ -67,7 +91,7 @@ body {
     transform: translateY(-1px);
 }
 
-/* 返回主页链接样式 */
+/* 返回主页链接样式 - 放在左边 */
 .home-link {
     color: white;
     text-decoration: none;
@@ -78,7 +102,6 @@ body {
     font-weight: 400;
     white-space: nowrap;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    margin-right: 8px;
 }
 
 .home-link:hover {
@@ -86,18 +109,26 @@ body {
     transform: translateY(-1px);
 }
 
-/* 汉堡菜单按钮 - 桌面端和移动端都显示，进一步缩小尺寸 */
+/* 汉堡菜单按钮 - 桌面端和移动端都显示，与返回主页按钮相同大小 */
 .nav-toggle {
-    display: flex;
+    display: flex !important; /* 确保在桌面端显示 */
     flex-direction: column;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 2px;
-    width: 16px;
-    height: 12px;
-    justify-content: space-between;
+    padding: 6px 12px; /* 与返回主页按钮相同的padding */
+    border-radius: 4px;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: auto; /* 覆盖之前的固定宽度 */
+    height: auto; /* 覆盖之前的固定高度 */
+    justify-content: center;
     align-items: center;
+}
+
+.nav-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
 }
 
 .hamburger-line {
