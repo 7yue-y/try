@@ -541,6 +541,9 @@ select, input {
         padding: 0;
         padding-top: 70px; /* 调整为与首页一致的顶部内边距 */
         overflow-x: hidden; /* 防止水平滚动 */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
     
     .header {
@@ -650,24 +653,27 @@ select, input {
         transform: rotate(-45deg) translate(3px, -3px);
     }
     
-    /* 移动端导航列表样式 - 从汉堡菜单下方展开并占据全宽 */
-    .nav-list {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        width: 100%;
-        background-color: #4a7694;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        z-index: 1001;
-        border-radius: 0;
-    }
-    
-    .nav-list.nav-active {
-        display: flex !important;
-    }
+/* 移动端导航列表样式 - 从汉堡菜单下方展开 */
+.nav-list {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 20px; /* 从右侧按钮下方展开 */
+    left: auto;
+    width: 200px;
+    background-color: #4a7694;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    border-radius: 0 0 8px 8px;
+    transform: none;
+}
+
+.nav-list.nav-active {
+    display: flex !important;
+    right: 20px; /* 确保激活时从右侧按钮下方展开 */
+    left: auto;
+}
     
     .nav-list.nav-active li {
         width: 100%;
@@ -690,13 +696,15 @@ select, input {
     
     .container {
         padding: 15px;
-        margin: 10px 0;
+        margin: 10px 15px;
         border-radius: 8px;
         max-width: 100%;
-        width: 100%;
+        width: calc(100% - 30px);
         box-sizing: border-box;
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        flex: 1;
+        overflow-y: auto;
     }
     
     .page-header {

@@ -379,27 +379,27 @@ function loadPreset() {
         ];
     } else if (currentPreset === 'a自然小调') {
         presetNotes = [
-            {note: 'A4', time: 0}, {note: 'B4', time: 1}, {note: 'C5', time: 2}, 
-            {note: 'D4', time: 3}, {note: 'E4', time: 4}, {note: 'F4', time: 5}, 
-            {note: 'G4', time: 6}, {note: 'A4', time: 7}
+            {note: 'A3', time: 0}, {note: 'B3', time: 1}, {note: 'C4', time: 2}, 
+            {note: 'D3', time: 3}, {note: 'E3', time: 4}, {note: 'F3', time: 5}, 
+            {note: 'G3', time: 6}, {note: 'A3', time: 7}
         ];
     } else if (currentPreset === 'a和声小调') {
         presetNotes = [
-            {note: 'A4', time: 0}, {note: 'B4', time: 1}, {note: 'C5', time: 2}, 
-            {note: 'D4', time: 3}, {note: 'E4', time: 4}, {note: 'F4', time: 5}, 
-            {note: 'G#4', time: 6}, {note: 'A4', time: 7}
+            {note: 'A3', time: 0}, {note: 'B3', time: 1}, {note: 'C4', time: 2}, 
+            {note: 'D3', time: 3}, {note: 'E3', time: 4}, {note: 'F3', time: 5}, 
+            {note: 'G#3', time: 6}, {note: 'A3', time: 7}
         ];
     } else if (currentPreset === 'a旋律小调(上行)') {
         presetNotes = [
-            {note: 'A4', time: 0}, {note: 'B4', time: 1}, {note: 'C5', time: 2}, 
-            {note: 'D4', time: 3}, {note: 'E4', time: 4}, {note: 'F#4', time: 5}, 
-            {note: 'G#4', time: 6}, {note: 'A4', time: 7}
+            {note: 'A3', time: 0}, {note: 'B3', time: 1}, {note: 'C4', time: 2}, 
+            {note: 'D3', time: 3}, {note: 'E3', time: 4}, {note: 'F#3', time: 5}, 
+            {note: 'G#3', time: 6}, {note: 'A3', time: 7}
         ];
     } else if (currentPreset === 'a旋律小调(下行)') {
         presetNotes = [
-            {note: 'A4', time: 0}, {note: 'G4', time: 1}, {note: 'F4', time: 2}, 
-            {note: 'E4', time: 3}, {note: 'D4', time: 4}, {note: 'C5', time: 5}, 
-            {note: 'B4', time: 6}, {note: 'A4', time: 7}
+            {note: 'A3', time: 0}, {note: 'G3', time: 1}, {note: 'F3', time: 2}, 
+            {note: 'E3', time: 3}, {note: 'D3', time: 4}, {note: 'C4', time: 5}, 
+            {note: 'B3', time: 6}, {note: 'A3', time: 7}
         ];
     }
     
