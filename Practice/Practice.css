@@ -650,17 +650,18 @@ select, input {
         transform: rotate(-45deg) translate(3px, -3px);
     }
     
-    /* 移动端导航列表样式 - 与首页一致 */
+    /* 移动端导航列表样式 - 从汉堡菜单下方展开 */
     .nav-list {
         display: none;
         flex-direction: column;
         position: absolute;
         top: 100%;
-        left: 0;
-        width: 100%;
+        right: 0;
+        width: 200px;
         background-color: #4a7694;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         z-index: 1001;
+        border-radius: 0 0 8px 8px;
     }
     
     .nav-list.nav-active {
@@ -687,9 +688,35 @@ select, input {
     
     .container {
         padding: 15px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin: 10px 0; /* 移除左右边距，确保容器宽度100% */
         border-radius: 8px;
+        max-width: 100%; /* 确保容器在移动端占据全宽 */
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .page-header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eaeaea;
+        width: 100%; /* 确保标题区域占据全宽 */
+    }
+    
+    .page-header h1 {
+        font-size: 1.4rem;
+        margin-bottom: 5px;
+        color: #5d8aa8;
+        font-weight: 300;
+        width: 100%; /* 确保标题占据全宽 */
+    }
+    
+    .subtitle {
+        font-size: 0.85rem;
+        color: #888;
+        font-weight: 300;
+        width: 100%; /* 确保副标题占据全宽 */
+        line-height: 1.4;
     }
     
     .page-header h1 {
