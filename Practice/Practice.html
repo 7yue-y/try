@@ -8,26 +8,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 </head>
 <body>
-    <!-- 顶部导航栏 -->
-    <header class="main-header">
-        <nav class="left-nav">
-            <ul>
-                <li><a href="../index.html">返回主页</a></li>
-            </ul>
-        </nav>
-        <div class="site-title">
-            <h1>金耳朵练习中心</h1>
-        </div>
-        <nav class="right-nav">
-            <!-- 统一的下拉菜单按钮 -->
+    <!-- 顶部导航栏 - 统一结构 -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>金耳朵练习中心</h1>
+            </div>
             <button id="navToggle" class="nav-toggle" aria-label="导航菜单">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
-            
-            <!-- 统一的导航菜单列表 -->
             <ul id="navList" class="nav-list">
+                <li><a href="../index.html">返回主页</a></li>
                 <li><a href="single-note.html">单音听辨</a></li>
                 <li><a href="../Chord/chord.html">和弦听辨</a></li>
                 <li><a href="interval.html">音程听辨</a></li>

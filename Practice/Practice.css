@@ -12,23 +12,38 @@ body {
     padding: 0;
 }
 
-/* 顶部导航栏样式 */
-.main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* 顶部导航栏样式 - 统一结构 */
+.header {
     background-color: #5d8aa8;
     color: white;
-    padding: 15px 30px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.left-nav ul, .right-nav ul {
-    list-style: none;
+.navbar {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-.left-nav a, .right-nav a {
+.nav-brand h1 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+/* 桌面端导航列表样式 - 水平布局 */
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list a {
     color: white;
     text-decoration: none;
     padding: 8px 15px;
@@ -36,19 +51,13 @@ body {
     transition: background-color 0.3s;
 }
 
-.left-nav a:hover, .right-nav a:hover {
+.nav-list a:hover {
     background-color: rgba(255, 255, 255, 0.2);
-}
-
-.site-title h1 {
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin: 0;
 }
 
 /* 桌面端汉堡菜单样式 */
 .nav-toggle {
-    display: flex;
+    display: none; /* 默认在桌面端隐藏汉堡菜单 */
     background: none;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 4px;
@@ -81,48 +90,6 @@ body {
 
 .hamburger-line.active:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -6px);
-}
-
-/* 桌面端导航列表样式 */
-.nav-list {
-    display: none; /* 默认隐藏导航列表 */
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    min-width: 180px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    z-index: 1000;
-    margin-top: 5px;
-    list-style: none;
-    padding: 0;
-}
-
-.nav-list.nav-active {
-    display: block; /* 只在激活时显示 */
-}
-
-.nav-list li {
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.nav-list li:last-child {
-    border-bottom: none;
-}
-
-.nav-list a {
-    display: block;
-    color: #444;
-    padding: 12px 15px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    text-align: left;
-}
-
-.nav-list a:hover {
-    background-color: #f0f0f0;
-    color: #5d8aa8;
 }
 
 .container {
@@ -483,9 +450,7 @@ select, input {
         padding-top: 80px; /* 增加顶部内边距以适应固定导航栏 */
     }
     
-    .main-header {
-        padding: 10px 15px;
-        flex-wrap: wrap;
+    .header {
         position: fixed;
         top: 0;
         left: 0;
@@ -495,14 +460,20 @@ select, input {
         height: 80px; /* 固定导航栏高度 */
     }
     
-    .site-title {
+    .navbar {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+        height: 80px;
+    }
+    
+    .nav-brand {
         order: -1;
         width: 100%;
         text-align: center;
         margin-bottom: 10px;
     }
     
-    .site-title h1 {
+    .nav-brand h1 {
         font-size: 1.1rem; /* 进一步减小字体大小以适应移动端 */
         margin: 0;
         line-height: 1.2;
@@ -513,8 +484,9 @@ select, input {
         max-width: 100%;
     }
     
-    .left-nav, .right-nav {
-        display: none !important; /* 在移动端隐藏水平导航栏 */
+    /* 在移动端隐藏水平导航列表，显示汉堡菜单 */
+    .nav-list {
+        display: none !important;
     }
     
     .nav-toggle {
@@ -721,12 +693,12 @@ select, input {
         padding-top: 65px;
     }
     
-    .main-header {
+    .header {
         padding: 6px 10px;
         height: 70px; /* 调整导航栏高度 */
     }
     
-    .site-title h1 {
+    .nav-brand h1 {
         font-size: 1rem; /* 进一步减小标题大小 */
         margin-bottom: 5px;
     }
@@ -819,12 +791,12 @@ select, input {
         padding-top: 60px;
     }
     
-    .main-header {
+    .header {
         padding: 5px 8px;
         height: 65px; /* 进一步调整导航栏高度 */
     }
     
-    .site-title h1 {
+    .nav-brand h1 {
         font-size: 0.9rem; /* 在超小屏幕上进一步减小标题 */
     }
     
@@ -932,15 +904,15 @@ select, input {
         height: 200px;
     }
     
-    .main-header {
+    .header {
         padding: 6px 10px;
     }
     
-    .site-title {
+    .nav-brand {
         margin-bottom: 5px;
     }
     
-    .site-title h1 {
+    .nav-brand h1 {
         font-size: 1rem;
     }
 }
