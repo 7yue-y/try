@@ -9,30 +9,26 @@
 </head>
 <body>
     <!-- 顶部导航栏 -->
-    <header class="header">
-        <div class="header-container">
-            <div class="logo-section">
-                <h1 class="logo">🎼 乐理知识库</h1>
-                <p class="tagline">视唱练耳中心 - 金耳朵练习中心</p>
-            </div>
-            
-            <!-- 响应式导航栏 -->
-            <nav class="navbar">
-                <button class="nav-toggle" id="navToggle">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
-                <ul class="nav-list" id="navList">
-                    <li><a href="../index.html">主页</a></li>
-                    <li><a href="../Scale/scale.html">音阶查找</a></li>
-                    <li><a href="../Chord/chord.html">和弦查找</a></li>
-                    <li><a href="../Theory/theory.html">其他乐理查找</a></li>
-                    <li><a href="Practice.html" class="active">视唱练耳中心</a></li>
-                    <li><a href="../About/about.html">关于</a></li>
-                </ul>
-            </nav>
+    <header class="main-header">
+        <nav class="left-nav">
+            <ul>
+                <li><a href="../index.html">返回主页</a></li>
+            </ul>
+        </nav>
+        <div class="site-title">
+            <h1>金耳朵练习中心</h1>
         </div>
+        <nav class="right-nav">
+            <div class="dropdown">
+                <button class="dropdown-toggle">导航菜单</button>
+                <ul class="dropdown-menu">
+                    <li><a href="single-note.html">单音听辨</a></li>
+                    <li><a href="../Chord/chord.html">和弦听辨</a></li>
+                    <li><a href="interval.html">音程听辨</a></li>
+                    <li><a href="melody.html">旋律听辨</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
     <div class="container">
