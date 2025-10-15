@@ -91,6 +91,38 @@ body {
     transform: translateY(-1px);
 }
 
+/* 桌面端导航菜单激活状态 */
+.nav-list.nav-active {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background-color: #4a7694;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    border-radius: 0 0 8px 8px;
+}
+
+.nav-list.nav-active li {
+    width: 100%;
+    text-align: center;
+}
+
+.nav-list.nav-active li a {
+    display: block;
+    padding: 12px 15px;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.nav-list.nav-active li a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
 /* 返回主页链接样式 - 放在左边 */
 .home-link {
     color: white;
@@ -528,11 +560,22 @@ select, input {
         align-items: center;
     }
     
-    .nav-brand {
+    .navbar-left, .navbar-center, .navbar-right {
+        flex: none; /* 在移动端取消flex:1，让元素自然排列 */
+    }
+    
+    .navbar-left {
         order: 1;
-        width: auto;
-        text-align: left;
-        margin-bottom: 0;
+    }
+    
+    .navbar-center {
+        order: 2;
+        flex: 1;
+        text-align: center;
+    }
+    
+    .navbar-right {
+        order: 3;
     }
     
     .nav-brand h1 {
@@ -548,8 +591,6 @@ select, input {
     
     /* 移动端返回主页链接样式 */
     .home-link {
-        order: 2;
-        margin-right: 10px;
         padding: 6px 12px;
         font-size: 0.9rem;
         border: 1px solid rgba(255, 255, 255, 0.5);
@@ -563,8 +604,7 @@ select, input {
     
     .nav-toggle {
         display: flex !important; /* 确保汉堡菜单显示 */
-        order: 3;
-        margin-left: auto; /* 确保汉堡菜单在右侧 */
+        padding: 6px 12px; /* 与桌面端保持一致的大小 */
     }
     
     /* 移动端汉堡菜单样式 - 与首页一致 */
@@ -574,22 +614,22 @@ select, input {
         background: none;
         border: none;
         cursor: pointer;
-        padding: 5px;
-        width: 24px;
-        height: 18px;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
     }
     
     .hamburger-line {
-        width: 100%;
-        height: 2px;
-        background-color: white;
-        border-radius: 1px;
+        width: 14px;
+        height: 1px;
+        background: white;
+        margin: 1.5px 0;
         transition: all 0.3s ease;
     }
     
     .hamburger-line.active:nth-child(1) {
-        transform: rotate(45deg) translate(4px, 4px);
+        transform: rotate(45deg) translate(3px, 3px);
     }
     
     .hamburger-line.active:nth-child(2) {
@@ -597,16 +637,12 @@ select, input {
     }
     
     .hamburger-line.active:nth-child(3) {
-        transform: rotate(-45deg) translate(4px, -4px);
+        transform: rotate(-45deg) translate(3px, -3px);
     }
     
     /* 移动端导航列表样式 - 与首页一致 */
     .nav-list {
         display: none;
-    }
-    
-    .nav-list.nav-active {
-        display: flex !important;
         flex-direction: column;
         position: absolute;
         top: 100%;
@@ -615,6 +651,10 @@ select, input {
         background-color: #4a7694;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         z-index: 1001;
+    }
+    
+    .nav-list.nav-active {
+        display: flex !important;
     }
     
     .nav-list.nav-active li {
@@ -701,6 +741,7 @@ select, input {
     
     .editor-grid {
         grid-template-columns: repeat(16, 20px);
+        grid-template-rows: repeat(13, 20px); /* 固定行高确保对齐 */
         height: 260px; /* 13行 * 20px高度 */
         gap: 1px;
     }
@@ -713,6 +754,11 @@ select, input {
     .note-label {
         height: 20px;
         font-size: 0.6rem;
+        margin-bottom: 1px; /* 减少边距以匹配网格间隙 */
+    }
+    
+    .note-labels {
+        height: 260px; /* 与编辑器网格高度匹配 */
     }
     
     .note-display {
