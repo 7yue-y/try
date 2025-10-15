@@ -581,6 +581,11 @@ select, input {
 
 /* 移动端导航栏改进 - 采用首页模式 */
 @media (max-width: 768px) {
+    html {
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
     body {
         padding: 0;
         padding-top: 70px; /* 调整为与首页一致的顶部内边距 */
@@ -589,6 +594,8 @@ select, input {
         display: flex;
         flex-direction: column;
         width: 100%;
+        position: relative;
+        max-width: 100vw;
     }
     
     .header {
@@ -600,6 +607,7 @@ select, input {
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         height: 70px; /* 调整为与首页一致的高度 */
         background-color: #4a7694; /* 确保背景色覆盖整个宽度 */
+        max-width: 100vw;
     }
     
     .navbar {
@@ -610,12 +618,14 @@ select, input {
         align-items: center;
         width: 100%;
         box-sizing: border-box;
+        max-width: 100vw;
     }
     
     .navbar-left, .navbar-center, .navbar-right {
         flex: none; /* 在移动端取消flex:1，让元素自然排列 */
         display: flex;
         align-items: center;
+        max-width: 33%;
     }
     
     .navbar-left {
@@ -628,7 +638,8 @@ select, input {
         flex: 1;
         text-align: center;
         justify-content: center;
-        padding: 0 10px; /* 添加内边距防止标题被截断 */
+        padding: 0 5px; /* 减少内边距防止标题被截断 */
+        max-width: 34%;
     }
     
     .navbar-right {
@@ -637,22 +648,23 @@ select, input {
     }
     
     .nav-brand h1 {
-        font-size: 1.2rem; /* 调整为与首页一致的字体大小 */
+        font-size: 1.1rem; /* 进一步减小标题大小 */
         margin: 0;
         line-height: 1.2;
         padding: 0;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 150px;
+        max-width: 120px;
     }
     
     /* 移动端返回主页链接样式 */
     .home-link {
-        padding: 6px 12px;
-        font-size: 0.9rem;
+        padding: 6px 10px;
+        font-size: 0.8rem;
         border: 1px solid rgba(255, 255, 255, 0.5);
         border-radius: 4px;
+        white-space: nowrap;
     }
     
     /* 在移动端隐藏水平导航列表，显示汉堡菜单 */
@@ -662,7 +674,7 @@ select, input {
     
     .nav-toggle {
         display: flex !important; /* 确保汉堡菜单显示 */
-        padding: 6px 12px; /* 与桌面端保持一致的大小 */
+        padding: 6px 10px; /* 减小内边距 */
     }
     
     /* 移动端汉堡菜单样式 - 与首页一致 */
@@ -679,7 +691,7 @@ select, input {
     }
     
     .hamburger-line {
-        width: 14px;
+        width: 12px;
         height: 1px;
         background: white;
         margin: 1.5px 0;
@@ -687,7 +699,7 @@ select, input {
     }
     
     .hamburger-line.active:nth-child(1) {
-        transform: rotate(45deg) translate(3px, 3px);
+        transform: rotate(45deg) translate(2px, 2px);
     }
     
     .hamburger-line.active:nth-child(2) {
@@ -695,30 +707,30 @@ select, input {
     }
     
     .hamburger-line.active:nth-child(3) {
-        transform: rotate(-45deg) translate(3px, -3px);
+        transform: rotate(-45deg) translate(2px, -2px);
     }
     
-/* 移动端导航列表样式 - 从汉堡菜单下方展开 */
-.nav-list {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    right: 15px; /* 从右侧按钮下方展开 */
-    left: auto;
-    width: 180px;
-    background-color: #4a7694;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    z-index: 1001;
-    border-radius: 0 0 8px 8px;
-    transform: none;
-}
+    /* 移动端导航列表样式 - 从汉堡菜单下方展开 */
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 10px; /* 从右侧按钮下方展开 */
+        left: auto;
+        width: 160px;
+        background-color: #4a7694;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        z-index: 1001;
+        border-radius: 0 0 8px 8px;
+        transform: none;
+    }
 
-.nav-list.nav-active {
-    display: flex !important;
-    right: 15px; /* 确保激活时从右侧按钮下方展开 */
-    left: auto;
-}
+    .nav-list.nav-active {
+        display: flex !important;
+        right: 10px; /* 确保激活时从右侧按钮下方展开 */
+        left: auto;
+    }
     
     .nav-list.nav-active li {
         width: 100%;
@@ -727,11 +739,12 @@ select, input {
     
     .nav-list.nav-active li a {
         display: block;
-        padding: 12px 20px;
+        padding: 10px 15px;
         border-radius: 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         color: white;
         text-align: center;
+        font-size: 0.8rem;
     }
     
     .nav-list.nav-active li a:hover {
@@ -740,23 +753,24 @@ select, input {
     }
     
     .container {
-        padding: 15px;
-        margin: 10px 10px;
-        border-radius: 8px;
+        padding: 10px;
+        margin: 5px;
+        border-radius: 6px;
         max-width: 100%;
-        width: calc(100% - 20px);
+        width: calc(100% - 10px);
         box-sizing: border-box;
         margin-left: auto;
         margin-right: auto;
         flex: 1;
         overflow-y: auto;
         overflow-x: hidden;
+        position: relative;
     }
     
     .page-header {
         text-align: center;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
         border-bottom: 1px solid #eaeaea;
         width: 100%;
         margin-left: 0;
@@ -766,247 +780,412 @@ select, input {
     }
     
     .page-header h1 {
-        font-size: 1.4rem;
-        margin-bottom: 5px;
+        font-size: 1.1rem;
+        margin-bottom: 4px;
         color: #5d8aa8;
         font-weight: 300;
-        width: 100%; /* 确保标题占据全宽 */
+        width: 100%;
+        line-height: 1.2;
     }
     
     .subtitle {
-        font-size: 0.85rem;
+        font-size: 0.7rem;
         color: #888;
         font-weight: 300;
-        width: 100%; /* 确保副标题占据全宽 */
-        line-height: 1.4;
-    }
-    
-    .page-header h1 {
-        font-size: 1.4rem; /* 调整页面标题大小 */
-        margin-bottom: 5px;
-    }
-    
-    .subtitle {
-        font-size: 0.85rem; /* 调整副标题大小 */
-        line-height: 1.3;
+        width: 100%;
+        line-height: 1.2;
     }
     
     .control-panel {
         flex-direction: column;
-        gap: 8px;
+        gap: 5px;
+        margin-bottom: 10px;
     }
     
     button, select, input {
         width: 100%;
         min-width: auto;
-        font-size: 0.8rem;
-        padding: 10px;
+        font-size: 0.7rem;
+        padding: 6px 8px;
     }
     
     .piano-container {
-        padding: 8px;
+        padding: 5px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         width: 100%;
+        margin-top: 8px;
+        max-width: 100%;
+        box-sizing: border-box;
     }
     
     .piano {
-        height: 100px;
-        min-width: 100%;
-        width: max-content;
+        height: 70px;
+        min-width: auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
     
     .white {
-        width: 25px;
+        width: 18px;
+        flex-shrink: 0;
     }
     
     .black {
-        width: 16px;
-        margin-left: -8px;
-        margin-right: -8px;
+        width: 12px;
+        margin-left: -6px;
+        margin-right: -6px;
+        flex-shrink: 0;
     }
     
     .key {
-        font-size: 0.5rem;
-        padding-bottom: 4px;
+        font-size: 0.4rem;
+        padding-bottom: 2px;
     }
     
     .midi-editor {
-        padding: 8px;
+        padding: 5px;
         width: 100%;
-        overflow-x: auto;
+        overflow-x: hidden;
+        margin-top: 8px;
+        box-sizing: border-box;
     }
     
     .editor-controls {
         flex-direction: column;
-        gap: 6px;
+        gap: 4px;
+        margin-bottom: 6px;
     }
     
     .editor-container {
         overflow-x: auto;
         width: 100%;
+        position: relative;
+        max-width: 100%;
+        box-sizing: border-box;
     }
     
     .editor-grid {
-        grid-template-columns: repeat(24, minmax(12px, 1fr)); /* 24个时间单位，6小节 */
-        grid-template-rows: repeat(16, 18px); /* 16个音符行从A3到C5 */
-        height: 288px; /* 16行 * 18px高度 */
+        grid-template-columns: repeat(24, minmax(2px, 1fr)); /* 使用弹性宽度 */
+        grid-template-rows: repeat(16, minmax(3px, 1fr)); /* 使用弹性高度 */
+        height: 64px; /* 进一步减小总高度 */
         gap: 1px;
-        border: 2px solid #8bb4c4;
+        border: 1px solid #8bb4c4;
         padding: 1px;
-        width: max-content;
-        min-width: 100%;
+        width: 100%;
+        min-width: 0;
+        max-width: 100vw;
+        font-size: 0;
+        box-sizing: border-box;
+        overflow: hidden;
     }
 
     .grid-cell {
         width: 100%;
-        height: 18px;
-        min-width: 12px;
+        height: 100%;
+        min-width: 2px;
+        min-height: 3px;
+        box-sizing: border-box;
     }
 
     .note-label {
-        height: 18px;
-        font-size: 0.5rem;
-        margin-bottom: 1px; /* 与网格间隙匹配 */
+        height: 100%;
+        font-size: 0.1rem;
+        margin-bottom: 1px;
+        padding: 0 1px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .note-labels {
-        height: 288px; /* 与编辑器网格高度精确匹配 */
-        width: 50px; /* 减小标签宽度 */
+        height: 64px;
+        width: 16px; /* 进一步减小标签宽度 */
+        box-sizing: border-box;
     }
     
     .note-display {
-        font-size: 1.1rem;
-        height: 40px;
-        margin: 8px 0;
-    }
-    
-    .pitch-display {
-        font-size: 1.3rem;
-        height: 40px;
-    }
-    
-    .visualizer {
-        height: 80px;
-    }
-    
-    .progress-bar {
-        margin: 8px 0;
-    }
-    
-    .preset-item {
-        padding: 6px;
+        font-size: 0.9rem;
+        height: 30px;
+        margin: 5px 0;
         font-size: 0.8rem;
     }
     
+    .pitch-display {
+        font-size: 1rem;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .visualizer {
+        height: 50px;
+        margin: 8px 0;
+    }
+    
+    .progress-bar {
+        margin: 5px 0;
+    }
+    
+    .preset-item {
+        padding: 4px;
+        font-size: 0.7rem;
+    }
+    
     h2 {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+    }
+    
+    h3 {
+        font-size: 0.85rem;
+        margin-bottom: 5px;
+    }
+    
+    .panel {
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .main-content {
+        gap: 12px;
+    }
+    
+    .collapsible-section {
+        margin-top: 6px;
+    }
+    
+    .collapse-toggle {
+        margin-bottom: 5px;
+        padding: 5px 6px;
+        font-size: 0.75rem;
+    }
+    
+    .preset-list.expanded {
+        max-height: 160px;
+        padding: 5px;
+    }
+    
+    .status {
+        margin: 5px 0;
+        font-size: 0.75rem;
     }
 }
 
 /* 小屏幕移动设备适配 */
 @media (max-width: 480px) {
+    html {
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
     body {
         padding-top: 65px;
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: relative;
+        max-width: 100vw;
     }
     
     .header {
         padding: 6px 10px;
         height: 70px; /* 调整导航栏高度 */
+        max-width: 100vw;
     }
     
     .nav-brand h1 {
         font-size: 1rem; /* 进一步减小标题大小 */
         margin-bottom: 5px;
+        max-width: 100px;
     }
     
     .container {
-        padding: 12px;
-        margin-top: 8px;
-        margin-bottom: 8px;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 5px;
         border-radius: 6px;
+        width: calc(100% - 10px);
+        max-width: 100%;
+        box-sizing: border-box;
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     
     .page-header {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
     
     .page-header h1 {
-        font-size: 1.2rem; /* 调整页面标题大小 */
+        font-size: 1rem; /* 调整页面标题大小 */
     }
     
     .subtitle {
-        font-size: 0.75rem; /* 调整副标题大小 */
+        font-size: 0.7rem; /* 调整副标题大小 */
     }
     
     .panel {
-        padding: 12px;
+        padding: 8px;
     }
     
     .piano {
-        height: 90px;
-        min-width: 450px;
+        height: 70px;
+        min-width: auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
     
     .white {
-        width: 22px;
+        width: 16px;
+        flex-shrink: 0;
     }
     
     .black {
-        width: 14px;
-        margin-left: -7px;
-        margin-right: -7px;
+        width: 10px;
+        margin-left: -5px;
+        margin-right: -5px;
+        flex-shrink: 0;
     }
     
     .key {
-        font-size: 0.45rem;
-        padding-bottom: 3px;
+        font-size: 0.35rem;
+        padding-bottom: 2px;
     }
     
     .editor-grid {
-        grid-template-columns: repeat(24, 14px); /* 24个时间单位，6小节 */
-        grid-template-rows: repeat(16, 18px); /* 16个音符行从A3到C5 */
-        height: 288px; /* 16行 * 18px高度 */
-        border: 2px solid #8bb4c4;
+        grid-template-columns: repeat(24, minmax(1px, 1fr)); /* 使用弹性宽度 */
+        grid-template-rows: repeat(16, minmax(2px, 1fr)); /* 使用弹性高度 */
+        height: 48px; /* 进一步减小总高度 */
+        gap: 1px;
+        border: 1px solid #8bb4c4;
         padding: 1px;
+        width: 100%;
+        min-width: 0;
+        max-width: 100vw;
+        font-size: 0;
+        box-sizing: border-box;
+        overflow: hidden;
     }
     
     .grid-cell {
-        width: 14px;
-        height: 18px;
+        width: 100%;
+        height: 100%;
+        min-width: 1px;
+        min-height: 2px;
+        box-sizing: border-box;
     }
     
     .note-label {
-        height: 18px;
-        font-size: 0.5rem;
+        height: 100%;
+        font-size: 0.1rem;
+        margin-bottom: 1px;
+        padding: 0 1px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .note-labels {
-        height: 288px; /* 与编辑器网格高度精确匹配 */
+        height: 48px;
+        width: 14px; /* 进一步减小标签宽度 */
+        box-sizing: border-box;
     }
     
     .note-display {
-        font-size: 1rem;
-        height: 35px;
+        font-size: 0.8rem;
+        height: 28px;
+        margin: 4px 0;
     }
     
     .pitch-display {
-        font-size: 1.1rem;
-        height: 35px;
+        font-size: 0.9rem;
+        height: 28px;
     }
     
     .visualizer {
-        height: 70px;
+        height: 45px;
+        margin: 6px 0;
     }
     
     .control-panel {
-        gap: 6px;
+        gap: 4px;
+        margin-bottom: 8px;
     }
     
     button, select, input {
-        padding: 8px;
-        font-size: 0.75rem;
+        padding: 6px;
+        font-size: 0.65rem;
+    }
+    
+    .editor-container {
+        overflow-x: auto;
+        width: 100%;
+        position: relative;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .midi-editor {
+        padding: 4px;
+        width: 100%;
+        overflow-x: hidden;
+        margin-top: 6px;
+        box-sizing: border-box;
+    }
+    
+    .editor-controls {
+        flex-direction: column;
+        gap: 3px;
+        margin-bottom: 5px;
+    }
+    
+    h2 {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    
+    h3 {
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+    
+    .main-content {
+        gap: 10px;
+    }
+    
+    .collapsible-section {
+        margin-top: 5px;
+    }
+    
+    .collapse-toggle {
+        margin-bottom: 4px;
+        padding: 4px 5px;
+        font-size: 0.7rem;
+    }
+    
+    .preset-list.expanded {
+        max-height: 140px;
+        padding: 4px;
+    }
+    
+    .status {
+        margin: 4px 0;
+        font-size: 0.7rem;
+    }
+    
+    .progress-bar {
+        margin: 4px 0;
+    }
+    
+    .preset-item {
+        padding: 3px;
+        font-size: 0.65rem;
     }
 }
 
@@ -1014,6 +1193,7 @@ select, input {
 @media (max-width: 360px) {
     body {
         padding-top: 60px;
+        overflow-x: hidden;
     }
     
     .header {
@@ -1022,87 +1202,129 @@ select, input {
     }
     
     .nav-brand h1 {
-        font-size: 0.9rem; /* 在超小屏幕上进一步减小标题 */
+        font-size: 0.85rem; /* 在超小屏幕上进一步减小标题 */
+        max-width: 120px;
     }
     
     .container {
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 5px;
+        padding: 6px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        width: calc(100% - 12px);
+        max-width: 100%;
     }
     
     .page-header h1 {
-        font-size: 1.1rem; /* 在超小屏幕上调整页面标题 */
+        font-size: 1rem; /* 在超小屏幕上调整页面标题 */
+    }
+    
+    .subtitle {
+        font-size: 0.65rem;
     }
     
     .piano {
-        height: 80px;
-        min-width: 400px;
+        height: 70px;
+        min-width: 100%;
     }
     
     .white {
-        width: 20px;
+        width: 16px;
     }
     
     .black {
-        width: 12px;
-        margin-left: -6px;
-        margin-right: -6px;
+        width: 10px;
+        margin-left: -5px;
+        margin-right: -5px;
     }
     
     .key {
-        font-size: 0.4rem;
-        padding-bottom: 2px;
+        font-size: 0.35rem;
+        padding-bottom: 1px;
     }
     
     .editor-grid {
-        grid-template-columns: repeat(24, 12px); /* 24个时间单位，6小节 */
-        grid-template-rows: repeat(16, 16px); /* 16个音符行从A3到C5 */
-        height: 256px; /* 16行 * 16px高度 */
-        border: 2px solid #8bb4c4;
+        grid-template-columns: repeat(24, 2px); /* 进一步减小单元格宽度 */
+        grid-template-rows: repeat(16, 4px); /* 进一步减小单元格高度 */
+        height: 64px; /* 16行 * 4px高度 */
+        gap: 1px;
+        border: 1px solid #8bb4c4;
         padding: 1px;
+        width: max-content;
+        min-width: 100%;
+        max-width: 100%;
     }
     
     .grid-cell {
-        width: 12px;
-        height: 16px;
+        width: 2px;
+        height: 4px;
+        min-width: 2px;
     }
     
     .note-label {
-        height: 16px;
-        font-size: 0.45rem;
+        height: 4px;
+        font-size: 0.1rem;
+        margin-bottom: 1px;
+        padding: 0 1px;
     }
     
     .note-labels {
-        height: 256px; /* 与编辑器网格高度精确匹配 */
+        height: 64px;
+        width: 16px; /* 进一步减小标签宽度 */
     }
     
     .note-display {
-        font-size: 0.9rem;
-        height: 30px;
+        font-size: 0.8rem;
+        height: 28px;
     }
     
     .pitch-display {
-        font-size: 1rem;
-        height: 30px;
+        font-size: 0.9rem;
+        height: 28px;
     }
     
     .visualizer {
-        height: 60px;
+        height: 50px;
     }
     
     .control-panel {
-        gap: 4px;
+        gap: 3px;
     }
     
     button, select, input {
-        padding: 6px;
-        font-size: 0.7rem;
+        padding: 5px;
+        font-size: 0.65rem;
     }
     
     .preset-item {
+        padding: 3px;
+        font-size: 0.7rem;
+    }
+    
+    h2 {
+        font-size: 0.9rem;
+    }
+    
+    h3 {
+        font-size: 0.8rem;
+    }
+    
+    .panel {
+        padding: 8px;
+    }
+    
+    .editor-container {
+        overflow-x: auto;
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+    }
+    
+    .midi-editor {
         padding: 4px;
-        font-size: 0.75rem;
+        width: 100%;
+        overflow-x: auto;
+        margin-top: 8px;
+        max-width: 100%;
     }
 }
 
@@ -1146,5 +1368,143 @@ select, input {
     
     .nav-brand h1 {
         font-size: 1rem;
+    }
+}
+
+/* 极窄屏幕设备适配 */
+@media (max-width: 320px) {
+    body {
+        padding-top: 55px;
+        overflow-x: hidden;
+    }
+    
+    .header {
+        padding: 4px 6px;
+        height: 60px;
+    }
+    
+    .nav-brand h1 {
+        font-size: 0.8rem;
+        max-width: 100px;
+    }
+    
+    .container {
+        padding: 4px;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        width: calc(100% - 8px);
+        max-width: 100%;
+    }
+    
+    .page-header h1 {
+        font-size: 0.9rem;
+    }
+    
+    .subtitle {
+        font-size: 0.6rem;
+    }
+    
+    .piano {
+        height: 60px;
+    }
+    
+    .white {
+        width: 14px;
+    }
+    
+    .black {
+        width: 8px;
+        margin-left: -4px;
+        margin-right: -4px;
+    }
+    
+    .key {
+        font-size: 0.3rem;
+    }
+    
+    .editor-grid {
+        grid-template-columns: repeat(24, 1px); /* 最小化单元格宽度 */
+        grid-template-rows: repeat(16, 3px); /* 最小化单元格高度 */
+        height: 48px; /* 16行 * 3px高度 */
+        gap: 0.5px;
+        border: 1px solid #8bb4c4;
+        padding: 0.5px;
+        width: max-content;
+        min-width: 100%;
+        max-width: 100%;
+    }
+    
+    .grid-cell {
+        width: 1px;
+        height: 3px;
+        min-width: 1px;
+    }
+    
+    .note-label {
+        height: 3px;
+        font-size: 0.08rem;
+        margin-bottom: 0.5px;
+        padding: 0 0.5px;
+    }
+    
+    .note-labels {
+        height: 48px;
+        width: 14px; /* 最小化标签宽度 */
+    }
+    
+    .note-display {
+        font-size: 0.75rem;
+        height: 24px;
+    }
+    
+    .pitch-display {
+        font-size: 0.8rem;
+        height: 24px;
+    }
+    
+    .visualizer {
+        height: 40px;
+    }
+    
+    button, select, input {
+        padding: 4px;
+        font-size: 0.6rem;
+    }
+    
+    .preset-item {
+        padding: 2px;
+        font-size: 0.65rem;
+    }
+    
+    h2 {
+        font-size: 0.85rem;
+    }
+    
+    h3 {
+        font-size: 0.75rem;
+    }
+    
+    .panel {
+        padding: 6px;
+    }
+    
+    .editor-container {
+        overflow-x: auto;
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+    }
+    
+    .midi-editor {
+        padding: 3px;
+        width: 100%;
+        overflow-x: auto;
+        margin-top: 6px;
+        max-width: 100%;
+    }
+    
+    .control-panel {
+        gap: 2px;
+        margin-bottom: 8px;
     }
 }
