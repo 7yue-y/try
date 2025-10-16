@@ -1000,27 +1000,30 @@ class ScaleGenerator {
             return scale.error;
         }
         
-        let description = `? ${scale.name}\n\n`;
-        description += `? 音阶音符: ${scale.notes.join(' - ')}\n\n`;
+        let description = `🎼 ${scale.name}\n\n`;
+        description += `🎼 音阶音符: ${scale.notes.join(' - ')}\n\n`;
         
         // 民族调式显示偏音信息和宫音
         if (scale.isFolkScale) {
-            description += `? 调式类型: 民族调式\n\n`;
+            description += `🎶 调式类型: 民族调式\n\n`;
             if (scale.gongNote) {
-                description += `? 宫音: ${scale.gongNote}\n\n`;
+                description += `🎹 宫音: ${scale.gongNote}\n\n`;
             }
             if (scale.bianyin) {
-                description += `? 偏音信息: ${scale.bianyin}\n\n`;
+                description += `🎹 偏音信息: ${scale.bianyin}\n\n`;
             }
         } else {
+            // 西洋调式显示调式类型和结构
+            description += `🎶 调式类型: 西洋调式\n\n`;
+            
             // 西洋调式显示结构
             if (this.scaleDescriptions[scale.type]) {
-                description += `? 音阶结构: ${this.scaleDescriptions[scale.type]}\n\n`;
+                description += `📐 音阶结构: ${this.scaleDescriptions[scale.type]}\n\n`;
             }
             
             // 添加调号信息
             if (scale.keySignature) {
-                description += `? 调号: ${scale.keySignature}\n\n`;
+                description += `🎹 调号: ${scale.keySignature}\n\n`;
             }
         }
         
@@ -1047,7 +1050,7 @@ class ScaleGenerator {
             'pentatonic_yu': '悲伤、优美'
         };
         
-        description += `? 音阶特点: ${characteristics[scale.type] || '无特殊描述'}`;
+        description += `💡 音阶特点: ${characteristics[scale.type] || '无特殊描述'}`;
         
         return description;
     }
