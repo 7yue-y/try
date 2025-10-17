@@ -6,11 +6,10 @@
 }
 
 body {
-    background-color: #f5f3f3; /* 与Main.css保持一致 */
+    background-color: #f9f7f7;
     color: #444;
     min-height: 100vh;
     padding: 0;
-    padding-top: 80px; /* 为固定导航栏留出空间 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,9 +18,9 @@ body {
     margin: 0;
 }
 
-/* 导航栏样式 - 从Main.css提取 */
+/* 顶部导航栏样式 - 重新设计布局 */
 .header {
-    background-color: #4a7694;
+    background-color: #4a7694; /* 使用首页的深蓝色 */
     color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     position: fixed;
@@ -31,37 +30,52 @@ body {
     z-index: 1000;
 }
 
-.header-container {
+.navbar {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between; /* 确保元素分布在两端 */
     padding: 12px 20px;
     position: relative;
 }
 
-.logo-section {
+/* 导航栏左侧区域 - 包含返回主页链接 */
+.navbar-left {
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
-.logo {
+/* 导航栏中间区域 - 包含品牌标题 */
+.navbar-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+/* 导航栏右侧区域 - 包含汉堡菜单 */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.nav-brand h1 {
     font-size: 1.4rem;
     font-weight: 400;
     margin: 0;
     color: white;
     white-space: nowrap;
+    text-align: center;
 }
 
-.navbar {
-    display: flex;
-    align-items: center;
-}
-
+/* 桌面端也使用汉堡菜单，隐藏水平导航列表 */
 .nav-list {
     list-style: none;
-    display: flex;
+    display: none;
     gap: 15px;
     margin: 0;
     padding: 0;
@@ -83,53 +97,18 @@ body {
     transform: translateY(-1px);
 }
 
-.nav-list li a.active {
-    background-color: rgba(255, 255, 255, 0.3);
-    font-weight: 500;
-}
-
-.nav-toggle {
-    display: none;
-    flex-direction: column;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    width: 30px;
-    height: 25px;
-    justify-content: space-between;
-}
-
-.hamburger-line {
-    width: 100%;
-    height: 3px;
-    background-color: white;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-
-.hamburger-line.active:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-
-.hamburger-line.active:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger-line.active:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
+/* 桌面端导航菜单激活状态 */
 .nav-list.nav-active {
     display: flex !important;
     flex-direction: column;
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 200px;
     background-color: #4a7694;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     z-index: 1001;
+    border-radius: 0 0 8px 8px;
 }
 
 .nav-list.nav-active li {
@@ -142,13 +121,15 @@ body {
     padding: 12px 15px;
     border-radius: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
 }
 
 .nav-list.nav-active li a:hover {
     background-color: rgba(255, 255, 255, 0.15);
+    color: white;
 }
 
-/* 返回主页链接样式 */
+/* 返回主页链接样式 - 放在左边 */
 .home-link {
     color: white;
     text-decoration: none;
@@ -159,12 +140,54 @@ body {
     font-weight: 400;
     white-space: nowrap;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    margin-right: 15px;
 }
 
 .home-link:hover {
     background-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
+}
+
+/* 汉堡菜单按钮 - 桌面端和移动端都显示，与返回主页按钮相同大小 */
+.nav-toggle {
+    display: flex !important; /* 确保在桌面端显示 */
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 12px; /* 与返回主页按钮相同的padding */
+    border-radius: 4px;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: auto; /* 覆盖之前的固定宽度 */
+    height: auto; /* 覆盖之前的固定高度 */
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.hamburger-line {
+    display: block;
+    width: 14px;
+    height: 1px;
+    background: white;
+    margin: 1.5px 0;
+    transition: all 0.3s ease;
+}
+
+.hamburger-line.active:nth-child(1) {
+    transform: rotate(45deg) translate(3px, 3px);
+}
+
+.hamburger-line.active:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-line.active:nth-child(3) {
+    transform: rotate(-45deg) translate(3px, -3px);
 }
 
 .container {
@@ -559,37 +582,7 @@ select, input {
 /* 移动端导航栏改进 - 采用首页模式 */
 @media (max-width: 768px) {
     body {
-        padding-top: 80px; /* 保持为固定导航栏留出空间 */
-    }
-    
-    .nav-toggle {
-        display: flex;
-    }
-    
-    .nav-list {
-        display: none;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    
-    .nav-list li a {
-        padding: 6px 12px;
-        font-size: 0.85rem;
-    }
-    
-    .home-link {
-        font-size: 0.8rem;
-        padding: 4px 8px;
-        margin-right: 10px;
-    }
-    
-    .logo-section {
-        flex-wrap: wrap;
-        gap: 5px;
-    }
-    
-    .logo {
-        font-size: 1.1rem;
+        padding-top: 70px;
     }
     
     .header {
