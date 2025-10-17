@@ -49,8 +49,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // 获取DOM元素
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
+    const scaleCategorySelect = document.getElementById('scaleCategorySelect');
     const rootNoteSelect = document.getElementById('rootNoteSelect');
     const scaleTypeSelect = document.getElementById('scaleTypeSelect');
+    const folkRootNoteSelect = document.getElementById('folkRootNoteSelect');
+    const folkScaleTypeSelect = document.getElementById('folkScaleTypeSelect');
+    const folkModeSelect = document.getElementById('folkModeSelect');
+    const westernScaleSelector = document.getElementById('westernScaleSelector');
+    const folkScaleSelector = document.getElementById('folkScaleSelector');
     const generateScaleBtn = document.getElementById('generateScaleBtn');
     const scaleInput = document.getElementById('scaleInput');
     const scaleSearchBtn = document.getElementById('scaleSearchBtn');
@@ -58,9 +64,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const analyzeScaleBtn = document.getElementById('analyzeScaleBtn');
     const noteButtons = document.querySelectorAll('.note-btn');
     const resultsContainer = document.getElementById('resultsContainer');
-    const circleNotes = document.querySelectorAll('.circle-note');
-    const circleScaleType = document.getElementById('circleScaleType');
-    
+    // 获取五度圈相关DOM元素
+    const circleDiagram = document.querySelector('.circle-of-fifths-diagram');
+
     // 标签页切换
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -77,18 +83,74 @@ document.addEventListener('DOMContentLoaded', function() {
                     content.classList.add('active');
                 }
             });
+
+            // 如果切换到五度圈，则初始化
+            if (tabId === 'circle-of-fifths') {
+                initializeCircleOfFifths();
+            }
         });
     });
     
+    // 调式类别切换
+    function handleScaleCategoryChange() {
+        const category = scaleCategorySelect.value;
+        
+        if (category === 'western') {
+            westernScaleSelector.classList.add('active');
+            folkScaleSelector.classList.remove('active');
+        } else {
+            westernScaleSelector.classList.remove('active');
+            folkScaleSelector.classList.add('active');
+        }
+    }
+    
     // 快速搜索：生成音阶
     function generateScale() {
-        const rootNote = rootNoteSelect.value;
-        const scaleType = scaleTypeSelect.value;
+        const category = scaleCategorySelect.value;
+        let result;
         
         setLoadingState(generateScaleBtn, true);
         
         setTimeout(() => {
-            const result = scaleGenerator.generateScale(rootNote, scaleType);
+            if (category === 'western') {
+                // 西洋/中古调式
+                const rootNote = rootNoteSelect.value;
+                const scaleType = scaleTypeSelect.value;
+                result = scaleGenerator.generateScale(rootNote, scaleType);
+            } else {
+                // 民族调式
+                const rootNote = folkRootNoteSelect.value;
+                const scaleType = folkScaleTypeSelect.value;
+                const mode = folkModeSelect.value;
+                
+                // 构建民族调式的标识符
+                let scaleIdentifier;
+                switch(scaleType) {
+                    case 'pentatonic':
+                        scaleIdentifier = `pentatonic_${mode}`;
+                        break;
+                    case 'hexatonic_qingjiao':
+                        scaleIdentifier = `hexatonic_qingjiao_${mode}`;
+                        break;
+                    case 'hexatonic_biangong':
+                        scaleIdentifier = `hexatonic_biangong_${mode}`;
+                        break;
+                    case 'qingle':
+                        scaleIdentifier = `qingle_${mode}`;
+                        break;
+                    case 'yayue':
+                        scaleIdentifier = `yayue_${mode}`;
+                        break;
+                    case 'yanyue':
+                        scaleIdentifier = `yanyue_${mode}`;
+                        break;
+                    default:
+                        scaleIdentifier = `pentatonic_${mode}`;
+                }
+                
+                result = scaleGenerator.generateScale(rootNote, scaleIdentifier);
+            }
+            
             displayResult(result, 'quick');
             setLoadingState(generateScaleBtn, false);
         }, 300);
@@ -129,9 +191,109 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // 五度圈检索
-    function generateScaleFromCircle(note, scaleType) {
-        const result = scaleGenerator.generateScale(note, scaleType);
+    function generateScaleFromCircle(rootNote, scaleType, element) {
+        // 移除所有激活状态
+        document.querySelectorAll('.circle-note').forEach(btn => btn.classList.remove('active'));
+        // 添加当前点击的激活状态
+        if (element) {
+            element.classList.add('active');
+        }
+
+        const result = scaleGenerator.generateScale(rootNote, scaleType);
         displayResult(result, 'circle');
+    }
+
+    // 初始化五度圈
+    function initializeCircleOfFifths() {
+        const circleOrder = [
+            { major: 'C', minor: 'A' },
+            { major: 'G', minor: 'E' },
+            { major: 'D', minor: 'B' },
+            { major: 'A', minor: 'F#' },
+            { major: 'E', minor: 'C#' },
+            { major: 'B', minor: 'G#' },
+            { major: 'F#', minor: 'D#' },
+            { major: 'C#', minor: 'A#' },
+            { major: 'Ab', minor: 'F' },
+            { major: 'Eb', minor: 'C' },
+            { major: 'Bb', minor: 'G' },
+            { major: 'F', minor: 'D' }
+        ];
+
+        const diagramSize = 350; // .circle-of-fifths-diagram 的宽度/高度
+        const centerOffset = diagramSize / 2; // 圆心偏移量
+        const radiusOuter = 130; // 外圈音符半径
+        const radiusInner = 80;  // 内圈音符半径
+
+        circleDiagram.innerHTML = ''; // 清空现有内容
+
+        // 添加中心点
+        const centerPoint = document.createElement('div');
+        centerPoint.className = 'circle-center-point';
+        centerPoint.textContent = '五度圈';
+        circleDiagram.appendChild(centerPoint);
+
+        circleOrder.forEach((keyPair, index) => {
+            const angle = (index / 12) * 2 * Math.PI - Math.PI / 2; // 从顶部开始，顺时针
+
+            // 创建外圈大调音符
+            const outerKeyNote = document.createElement('div');
+            outerKeyNote.className = 'key-note outer';
+            outerKeyNote.innerHTML = `<div class="note-main">${keyPair.major}</div><div class="note-minor">大调</div>`;
+            outerKeyNote.setAttribute('data-note', keyPair.major);
+            outerKeyNote.setAttribute('data-scale-type', 'major');
+            
+            const xOuter = centerOffset + radiusOuter * Math.cos(angle);
+            const yOuter = centerOffset + radiusOuter * Math.sin(angle);
+            outerKeyNote.style.left = `${xOuter}px`;
+            outerKeyNote.style.top = `${yOuter}px`;
+            outerKeyNote.addEventListener('click', (e) => {
+                generateScaleFromCircle(keyPair.major, 'major', e.currentTarget);
+            });
+            circleDiagram.appendChild(outerKeyNote);
+
+            // 创建内圈小调音符
+            const innerKeyNote = document.createElement('div');
+            innerKeyNote.className = 'key-note inner';
+            innerKeyNote.innerHTML = `<div class="note-main">${keyPair.minor}</div><div class="note-minor">小调</div>`;
+            innerKeyNote.setAttribute('data-note', keyPair.minor);
+            innerKeyNote.setAttribute('data-scale-type', 'naturalMinor');
+            
+            const xInner = centerOffset + radiusInner * Math.cos(angle);
+            const yInner = centerOffset + radiusInner * Math.sin(angle);
+            innerKeyNote.style.left = `${xInner}px`;
+            innerKeyNote.style.top = `${yInner}px`;
+            innerKeyNote.addEventListener('click', (e) => {
+                generateScaleFromCircle(keyPair.minor, 'naturalMinor', e.currentTarget);
+            });
+            circleDiagram.appendChild(innerKeyNote);
+
+            // 添加连接线
+            if (index < circleOrder.length) { // 避免在最后一个音符后添加线
+                const line = document.createElement('div');
+                line.className = 'circle-line';
+                
+                // 计算线的起始点和结束点
+                // 从外圈音符的中心到下一个外圈音符的中心
+                const nextIndex = (index + 1) % circleOrder.length;
+                const nextAngle = (nextIndex / 12) * 2 * Math.PI - Math.PI / 2;
+
+                const x1 = centerOffset + radiusOuter * Math.cos(angle);
+                const y1 = centerOffset + radiusOuter * Math.sin(angle);
+                const x2 = centerOffset + radiusOuter * Math.cos(nextAngle);
+                const y2 = centerOffset + radiusOuter * Math.sin(nextAngle);
+
+                const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                const lineAngle = Math.atan2(y2 - y1, x2 - x1);
+
+                line.style.width = `${length}px`;
+                line.style.left = `${x1}px`;
+                line.style.top = `${y1}px`;
+                line.style.transform = `rotate(${lineAngle}rad)`;
+                line.style.transformOrigin = '0 0'; // 设置旋转中心为线的起点
+                circleDiagram.appendChild(line);
+            }
+        });
     }
     
     // 显示结果函数
@@ -175,7 +337,21 @@ document.addEventListener('DOMContentLoaded', function() {
 function displaySingleScale(result, resultCard, searchType) {
     const description = scaleGenerator.generateScaleDescription(result);
     const lines = description.split('\n');
-    
+
+    // 音级名称定义
+    const westernDegrees = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+    // 为民族调式创建一个更详细的映射
+    const folkDegreeMap = {
+        'pentatonic_gong': ['宫', '商', '角', '徵', '羽'],
+        'hexatonic_qingjiao_gong': ['宫', '商', '角', '清角', '徵', '羽'],
+        'hexatonic_biangong_gong': ['宫', '商', '角', '徵', '羽', '变宫'],
+        'qingle_gong': ['宫', '商', '角', '清角', '徵', '羽', '变宫'],
+        'yayue_gong': ['宫', '商', '角', '变徵', '徵', '羽', '变宫'],
+        'yanyue_gong': ['宫', '商', '角', '清角', '徵', '羽', '闰']
+    };
+    const folkBianyinNames = ['清角', '变宫', '变徵', '闰'];
+
+
     let htmlContent = `
         <div class="result-header">
             <div class="result-icon">${result.isFolkScale ? '🎎' : '🎵'}</div>
@@ -186,12 +362,49 @@ function displaySingleScale(result, resultCard, searchType) {
         <div class="result-content">
             <div class="scale-notes">
     `;
-    
-    // 添加音符显示
-    result.notes.forEach(note => {
-        htmlContent += `<div class="note-item">${note}</div>`;
+
+    // 添加音符和音级显示
+    result.notes.forEach((note, index) => {
+        let degree = '';
+        let isBianyin = false;
+
+        if (result.isFolkScale) {
+            // 民族调式音名
+            const gongNote = result.gongNote || result.root;
+            const gongScaleType = scaleGenerator.getGongScaleType(result.type);
+            const gongScale = scaleGenerator.generateFolkScaleDirect(gongNote, gongScaleType);
+            
+            if (!gongScale.error) {
+                const noteIndexInGong = gongScale.notes.indexOf(note);
+                const degreeNames = folkDegreeMap[gongScaleType];
+                
+                if (degreeNames && noteIndexInGong !== -1 && degreeNames[noteIndexInGong]) {
+                    degree = degreeNames[noteIndexInGong];
+                    if (folkBianyinNames.includes(degree)) {
+                        isBianyin = true;
+                    }
+                }
+            }
+        } else {
+            // 西洋调式音级
+            degree = westernDegrees[index];
+        }
+
+        // 格式化音符显示
+        const formattedNote = note
+            .replace('#', '♯')
+            .replace('b', '♭')
+            .replace('×', '♯♯')
+            .replace('bb', '♭♭');
+
+        htmlContent += `
+            <div class="note-item ${isBianyin ? 'bianyin' : ''}">
+                <div class="note-name">${formattedNote}</div>
+                <div class="note-degree">${degree}</div>
+            </div>
+        `;
     });
-    
+
     htmlContent += `
             </div>
             <div class="scale-info">
@@ -325,19 +538,16 @@ function displaySingleScale(result, resultCard, searchType) {
         });
     });
     
-    // 五度圈音符点击事件
-    circleNotes.forEach(note => {
-        note.addEventListener('click', () => {
-            const noteValue = note.getAttribute('data-note');
-            const scaleType = circleScaleType.value === 'major' ? 'major' : 'naturalMinor';
-            generateScaleFromCircle(noteValue, scaleType);
-        });
-    });
-    
     // 事件监听器
+    scaleCategorySelect.addEventListener('change', handleScaleCategoryChange);
     generateScaleBtn.addEventListener('click', generateScale);
     scaleSearchBtn.addEventListener('click', searchScaleByName);
     analyzeScaleBtn.addEventListener('click', analyzeScaleFromNotes);
+
+    // 初始加载时检查是否在五度圈页面，如果是则初始化
+    // 延迟初始化，确保DOM完全渲染
+    // 无论是否在五度圈页面，都尝试初始化，确保内容生成
+    setTimeout(initializeCircleOfFifths, 0);
     
     scaleInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -352,5 +562,5 @@ function displaySingleScale(result, resultCard, searchType) {
     });
     
     // 初始欢迎信息
-    console.log('音阶查找工具已加载 - 增加五度圈和调式验证');
+    console.log('音阶查找工具已加载 - 增加调式类别切换功能');
 });
