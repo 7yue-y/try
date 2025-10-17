@@ -11,8 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmMessage = document.getElementById('confirmMessage');
     
     // 音频元素
-    const backgroundMusic = new Audio('../UserMusic/ChiliChill-A cup of coffee.mp3');
-    backgroundMusic.loop = true;
+    const backgroundMusic = document.getElementById('backgroundMusic');
     backgroundMusic.volume = 0.5;
     
     // 当前选择的身份
@@ -154,25 +153,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 播放背景音乐
     function playBackgroundMusic() {
-        // 设置音频为静音，然后播放，这样可以绕过自动播放限制
-        backgroundMusic.muted = true;
+        // 立即尝试播放
         backgroundMusic.play().then(() => {
-            // 播放成功后取消静音
-            backgroundMusic.muted = false;
             console.log('背景音乐开始播放');
         }).catch(error => {
-            console.log('音频播放失败:', error);
-            // 如果静音播放也失败，尝试在用户交互时播放
-            document.addEventListener('click', function startMusicOnClick() {
+            console.log('自动播放失败，等待用户交互:', error);
+            // 如果自动播放失败，在用户点击时播放
+            const startMusicOnClick = function() {
                 backgroundMusic.play().then(() => {
-                    backgroundMusic.muted = false;
+                    console.log('用户交互后背景音乐开始播放');
+                }).catch(e => {
+                    console.log('用户交互后播放也失败:', e);
                 });
                 document.removeEventListener('click', startMusicOnClick);
-            }, { once: true });
+            };
+            document.addEventListener('click', startMusicOnClick, { once: true });
         });
     }
     
-    // 页面加载完成后开始播放音乐
+    // 页面加载完成后立即开始播放音乐
     playBackgroundMusic();
     
     console.log('乐理学习中心交互式组件已初始化');
