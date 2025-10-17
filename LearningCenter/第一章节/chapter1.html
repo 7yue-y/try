@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一章：音程与和弦 - 乐理学习中心</title>
+    <link rel="stylesheet" href="../learningCenter.css">
+    <style>
+        /* 限制页面内容宽度并居中 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .piano-window {
+            background: transparent;
+            border: none;
+            padding: 20px 0;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .piano-window h4 {
+            color: #4a7694;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        
+        .piano-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .play-btn {
+            background: #4a7694;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(74, 118, 148, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .play-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .play-btn:hover {
+            background: #3a6684;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 118, 148, 0.3);
+        }
+        
+        .play-btn:hover::before {
+            left: 100%;
+        }
+        
+        .play-btn:active {
+            transform: translateY(0);
+        }
+        
+        .play-btn.playing {
+            background: #2c5aa0;
+            box-shadow: 0 0 0 3px rgba(74, 118, 148, 0.3);
+        }
+        
+        .piano-visual {
+            background: #2c3e50;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: white;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .chord-notes {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4a7694;
+            background: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            border: 1px solid #e9ecef;
+        }
+        
+        .chord-structure {
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            max-height: 400px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* 钢琴键盘样式 */
+        .piano-keyboard {
+            background: transparent;
+            border: none;
+            padding: 15px 0;
+            margin: 15px 0;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            min-height: 120px;
+        }
+        
+        .keyboard-keys {
+            display: flex;
+            justify-content: center;
+            gap: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .piano-key {
+            background: #ffffff;
+            color: #333;
+            border: 2px solid #ddd;
+            border-radius: 0 0 6px 6px;
+            padding: 45px 8px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 35px;
+            height: 100px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .piano-key:hover {
+            background: #f8f8f8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .piano-key.active {
+            background: #2c5aa0;
+            color: white;
+            transform: translateY(2px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .piano-key.black {
+            background: #2c2c2c;
+            color: white;
+            position: relative;
+            z-index: 2;
+            margin: 0 -12px;
+            padding: 30px 6px 12px;
+            min-width: 22px;
+            height: 65px;
+            border: 2px solid #1a1a1a;
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .piano-key.black:hover {
+            background: #3a3a3a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .piano-key.black.active {
+            background: #1a3a5c;
+            color: white;
+            transform: translateY(2px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .piano-key {
+                min-width: 28px;
+                height: 80px;
+                padding: 35px 6px 10px;
+                font-size: 11px;
+            }
+            
+            .piano-key.black {
+                min-width: 18px;
+                height: 50px;
+                padding: 25px 4px 8px;
+                margin: 0 -9px;
+            }
+            
+            .play-btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+            
+            .chord-notes {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .piano-key {
+                min-width: 25px;
+                height: 70px;
+                padding: 30px 4px 8px;
+                font-size: 10px;
+            }
+            
+            .piano-key.black {
+                min-width: 16px;
+                height: 45px;
+                padding: 20px 3px 6px;
+                margin: 0 -8px;
+            }
+            
+            .keyboard-keys {
+                gap: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-container">
+                <div class="logo-section">
+                    <h1 class="logo">🎼 乐理知识库</h1>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <!-- 页面标题 -->
+            <div class="page-header">
+                <h1>第一章：音程与和弦</h1>
+                <p class="subtitle">音乐理论的基础构建模块</p>
+            </div>
+            
+            <!-- 章节导航 -->
+            <div class="chapter-nav">
+                <a href="../learningCenter.html" class="nav-btn">← 返回学习中心</a>
+                <div class="chapter-progress">
+                    <span class="current-chapter">第一章</span>
+                    <span class="progress-dots">• • •</span>
+                </div>
+            </div>
+            
+            <!-- 1.1 音程 -->
+            <section class="chapter-section">
+                <h2>1.1 音程</h2>
+                <div class="content-card">
+                    <p>音乐界将两个音之间的距离称为音程（Interval），沿用历史习惯，以"性质+度数"来描述。</p>
+                    
+                    <div class="theory-point">
+                        <h3>音程的基本概念</h3>
+                        <ul>
+                            <li><strong>根音（Bottom note）或下方音（Lower note）</strong>：音程中较低的音</li>
+                            <li><strong>冠音（Top note）或上方音（Higher note）</strong>：音程中较高的音</li>
+                            <li><strong>度数（Number）</strong>：根音到冠音之间跨过的字母数</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>度数示例：</h4>
+                        <ul>
+                            <li>C → C（相同音高）：只跨过C一个字母，称为一度（Unison）</li>
+                            <li>C → 高八度C：跨过C-D-E-F-G-A-B-C共八个字母，所以是八度（Octave，8ve）</li>
+                            <li>C → G：有五个字母，因此就是五度（Fifth，5th）</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>音程的性质</h3>
+                        <p>有一些音程虽然度数相同，但实际距离不同，例如C-F与C-F♭都是四度，但前者比后者多一个半音。为了区分，人们引入了音程的性质（Quality）：</p>
+                        <ul>
+                            <li><strong>大（Major）</strong>：如大三度 C-E（Major 3rd，M3）</li>
+                            <li><strong>小（Minor）</strong>：如小三度 C-E♭（Minor 3rd，m3）</li>
+                            <li><strong>纯（Perfect）</strong>：如纯五度 C-G</li>
+                            <li><strong>增（Augmented）</strong>：如增二度 C-D♯（Augmented 2nd，A2）</li>
+                            <li><strong>减（Diminished）</strong>：如减四度 C-F♭</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>二度音程示例：</h4>
+                        <p>C到D♭、D、D♯都是二度，然而：</p>
+                        <ul>
+                            <li>C-D♭只有一个半音：小二度（Minor 2nd，m2）</li>
+                            <li>C-D有两个半音：大二度（Major 2nd，M2）</li>
+                            <li>C-D♯有三个半音：增二度（Augmented 2nd，A2）</li>
+                        </ul>
+                        <p>性质均不相同，分别叫做小二度、大二度、增二度。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 1.2 和弦 -->
+            <section class="chapter-section">
+                <h2>1.2 和弦</h2>
+                <div class="content-card">
+                    <p>人类最初的音乐是单声部的旋律，并没有出现和声。后来人们在一个声部之外，加入了其他声部与之配合，就产生了多声部音乐。</p>
+                    
+                    <div class="theory-point">
+                        <h3>和声的起源</h3>
+                        <p>在实践中逐渐发现，某些音同时发声会产生协和悦耳的效果，而另一些则听起来不协和，于是就有了和声（Harmony）概念的雏形。</p>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>和弦的定义</h3>
+                        <p>音的各种搭配组合慢慢形成了一些固定的模式，就是今天所说的和弦（Chord）。和弦不仅有协和的，也有不协和的，只要用得恰当，都能极大地提高音乐表现力。</p>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>和声学</h3>
+                        <p>人们仔细研究和弦的结构、音响效果与相互关系，不断总结规律，最终建立了音乐的一门核心理论——和声学（Harmonics）。它主要解决两个问题："用什么和弦"与"怎么用和弦"。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 1.3 大三和弦 -->
+            <section class="chapter-section">
+                <h2>1.3 大三和弦</h2>
+                <div class="content-card">
+                    <p>传统的和弦通常由三度音程堆叠得到，最基础的是三个音向上堆叠构成的三和弦（Triad）。</p>
+                    
+                    <div class="example-box">
+                        <h4>C大三和弦示例：</h4>
+                        <p>比如下面这个和弦有C-E-G三个音，C音上方叠加大三度的E，E音上方叠加小三度的G。</p>
+                        <ul>
+                            <li>C音上方叠加大三度的E</li>
+                            <li>E音上方叠加小三度的G</li>
+                        </ul>
+                        <!-- 钢琴窗和图片位置 -->
+                        <div class="piano-window" data-chord="C">
+                            <h4>C大三和弦钢琴窗</h4>
+                            <div class="piano-controls">
+                                <button class="play-btn" data-chord="C">播放C大三和弦</button>
+
+                            </div>
+                            <div class="piano-keyboard">
+                                <div class="keyboard-keys">
+                                    <div class="piano-key" data-note="C4">C</div>
+                                    <div class="piano-key black" data-note="C#4">C#</div>
+                                    <div class="piano-key" data-note="D4">D</div>
+                                    <div class="piano-key black" data-note="D#4">D#</div>
+                                    <div class="piano-key" data-note="E4">E</div>
+                                    <div class="piano-key" data-note="F4">F</div>
+                                    <div class="piano-key black" data-note="F#4">F#</div>
+                                    <div class="piano-key" data-note="G4">G</div>
+                                    <div class="piano-key black" data-note="G#4">G#</div>
+                                    <div class="piano-key" data-note="A4">A</div>
+                                    <div class="piano-key black" data-note="A#4">A#</div>
+                                    <div class="piano-key" data-note="B4">B</div>
+                                    <div class="piano-key" data-note="C5">C</div>
+                                </div>
+                                <div class="chord-notes">C - E - G</div>
+                                <div class="chord-structure">大三度 + 小三度 = 大三和弦</div>
+                            </div>
+                        </div>
+                        <div class="image-container">
+                            <img src="../photo/1.3 C和弦的结构.jpg" alt="C大三和弦结构图">
+                        </div>
+                        <p>我们用一个半音循环图来表示，在图中将三个音连起来，就形成了一个三角形。</p>
+                        <p>这种"大三度+小三度"的结构就叫做大三和弦（Major triad）。</p>
+                        <p>以任何一个音为根音，都能建立大三和弦，因此不考虑等音的情况下一共有12个。</p>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>大三和弦结构</h3>
+                        <p>"大三度+小三度"的结构就叫做大三和弦（Major triad），其中三个音都有各自的名称：</p>
+                        <ul>
+                            <li><strong>根音（Root note）</strong>：C音，三度叠置的基础</li>
+                            <li><strong>三音（3rd note）</strong>：E，根音之上三度</li>
+                            <li><strong>五音（5th note）</strong>：G，比E高一个小三度，到根音C就是大三度+小三度=纯五度</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>和弦记号</h3>
+                        <p>人们习惯用根音的音名来代表整个大三和弦：</p>
+                        <ul>
+                            <li>C-E-G和弦记作：C、Cmaj、CΔ</li>
+                            <li>这是现代产生的字母标记（Lead sheet symbol）或流行标记（Pop symbol）</li>
+                            <li>大量用于流行与爵士音乐</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>原位与转位</h3>
+                        <ul>
+                            <li><strong>原位（Root position）</strong>：根音放在最底下</li>
+                            <li><strong>转位（Inverted position, Inversion）</strong>：其他和弦音放在最底下</li>
+                            <li>转位记号：C/E、C/G 分别表示把三音E、五音G放在最下面</li>
+                            <li>注意：这种基于音名的和弦记号是现代产生的</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>G大三和弦：</h4>
+                        <p>以G为根音的G和弦包括G-B-D三个音：</p>
+                        <div class="image-container">
+                            <img src="../photo/1.3 C和弦和G和弦.jpg" alt="C和弦和G和弦对比图">
+                        </div>
+
+                        <!-- 钢琴窗和图片位置 -->
+                        <div class="piano-window" data-chord="G">
+                        <h4>G大三和弦钢琴窗</h4>
+                            <div class="piano-controls">
+                                <button class="play-btn" data-chord="G">播放G大三和弦</button>
+
+                            </div>
+                            <div class="piano-keyboard">
+                                <div class="keyboard-keys">
+                                    <div class="piano-key" data-note="C4">C</div>
+                                    <div class="piano-key black" data-note="C#4">C#</div>
+                                    <div class="piano-key" data-note="D4">D</div>
+                                    <div class="piano-key black" data-note="D#4">D#</div>
+                                    <div class="piano-key" data-note="E4">E</div>
+                                    <div class="piano-key" data-note="F4">F</div>
+                                    <div class="piano-key black" data-note="F#4">F#</div>
+                                    <div class="piano-key" data-note="G4">G</div>
+                                    <div class="piano-key black" data-note="G#4">G#</div>
+                                    <div class="piano-key" data-note="A4">A</div>
+                                    <div class="piano-key black" data-note="A#4">A#</div>
+                                    <div class="piano-key" data-note="B4">B</div>
+                                    <div class="piano-key" data-note="C5">C</div>
+                                </div>
+                                <div class="chord-notes">G - B - D</div>
+                                <div class="chord-structure">大三度 + 小三度 = 大三和弦</div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 1.4 小三和弦 -->
+            <section class="chapter-section">
+                <h2>1.4 小三和弦</h2>
+                <div class="content-card">
+                    <div class="image-container">
+                        <img src="../photo/1.4 Em和弦.jpg" alt="Em小三和弦结构图">
+                        <p>观察上面的图，在两个大三和弦中间是不是还有一个三角形呢？</p>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>小三和弦结构</h3>
+                        <p>E-G-B构成的三角形与大三和弦相比上下颠倒，属于另一种三和弦——小三和弦（Minor triad）</p>
+                        <ul>
+                            <li>结构："小三度+大三度"</li>
+                            <li>根音到三音为小三度</li>
+                            <li>三音到五音为大三度</li>
+                            <li>根音到五音仍为纯五度</li>
+                        </ul>
+                        <p>音响和谐但情绪比较忧郁暗淡。</p>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>小三和弦记号</h3>
+                        <p>常用记号是在根音后面加上小写的m：</p>
+                        <ul>
+                            <li>E-G-B和弦记作：Em、Emin、E-</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>E和弦与Em和弦对比：</h4>
+                        <p>那么现在思考一下，E和弦的三个音又是什么呢？Em和弦的三音G是E上方小三度，而E和弦的三音应该是E上方大三度，所以G需要升高半音到G♯，画在图中就是：</p>
+                        <div class="image-container">
+                            <img src="../photo/1.4 E和弦.jpg" alt="E和弦结构图">
+                        </div>
+                        <p>比较E、Em和弦的各音可见，相同根音上的大、小三和弦只有三音不同，相差一个半音。</p>
+                        
+                        <!-- 小三和弦钢琴窗 -->
+                        <div class="piano-window" data-chord="Em">
+                            <h4>小三和弦钢琴窗</h4>
+                            <div class="piano-controls">
+                                <button class="play-btn" data-chord="Em">播放Em小三和弦</button>
+                                <button class="play-btn" data-chord="E">播放E大三和弦</button>
+                            </div>
+                            <div class="piano-keyboard">
+                                <div class="keyboard-keys">
+                                    <div class="piano-key" data-note="E4">E</div>
+                                    <div class="piano-key" data-note="F4">F</div>
+                                    <div class="piano-key black" data-note="F#4">F#</div>
+                                    <div class="piano-key" data-note="G4">G</div>
+                                    <div class="piano-key black" data-note="G#4">G#</div>
+                                    <div class="piano-key" data-note="A4">A</div>
+                                    <div class="piano-key black" data-note="A#4">A#</div>
+                                    <div class="piano-key" data-note="B4">B</div>
+                                    <div class="piano-key" data-note="C5">C</div>
+                                    <div class="piano-key black" data-note="C#5">C#</div>
+                                    <div class="piano-key" data-note="D5">D</div>
+                                    <div class="piano-key black" data-note="D#5">D#</div>
+                                    <div class="piano-key" data-note="E5">E</div>
+                                </div>
+                                <div class="chord-notes">E - G - B (Em) | E - G♯ - B (E)</div>
+                                <div class="chord-structure">小三度 + 大三度 = 小三和弦 | 大三度 + 小三度 = 大三和弦</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>重要概念</h3>
+                        <ul>
+                            <li>相同根音上的大、小三和弦只有三音不同，相差一个半音</li>
+                            <li>把大三和弦的三音降低半音，就变成了小三和弦；把小三和弦的三音升高半音，就变成了大三和弦，在图中表现为三角形的上下翻转</li>
+                            <li>少了三音，和弦就不确定是大三还是小三了。因此，三音决定了整个和弦的性质，地位仅次于根音，一般情况下不能省略</li>
+                            <li>五音主要作用是让音响更丰满，即使去掉也不改变和弦性质，时常可以省略</li>
+                            <li>省略五音时，和弦记号可保持不变，或加上"no5"、"omit5"表示</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="theory-point">
+                        <h3>和声中的半音现象</h3>
+                        <p>三音的升降也揭示了和声的一个关键现象：半音的音程距离看似很近，但在和声中关系却很远，能显著改变音响效果。正因为如此：</p>
+                        <ul>
+                            <li>演唱、演奏、创作时发生失误，仅仅偏差半音，听起来却非常明显，非专业的听众也能轻易觉察</li>
+                            <li>利用这一点，有意使用半音变化，是和声的重要技法</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 章节导航 -->
+            <div class="chapter-nav bottom-nav">
+                <a href="../learningCenter.html" class="nav-btn">← 返回学习中心</a>
+                <button class="nav-btn next-btn" disabled>下一章 →</button>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 艺考乐理知识库</p>
+        </footer>
+    </div>
+
+    <script src="../../app.js"></script>
+    <!-- 加载Tone.js库 -->
+    <script src="https://unpkg.com/tone@14.7.77/build/Tone.js"></script>
+    <script src="chapter1.js"></script>
+</body>
+</html>

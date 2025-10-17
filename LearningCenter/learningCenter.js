@@ -83,13 +83,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // 进入下一章节
-    function goToNextChapter() {
+    // 进入第一章
+    function goToChapter1() {
         // 隐藏确认模态框
         hideConfirmModal();
         
-        // 直接进入下一章节
-        alert('下一章节内容正在开发中...');
+        // 直接跳转到第一章页面
+        window.location.href = '第一章节/chapter1.html';
+    }
+    
+    // 显示章节列表
+    function showChaptersSection() {
+        // 隐藏确认模态框
+        hideConfirmModal();
+        
+        // 显示章节列表
+        const chaptersSection = document.getElementById('chaptersSection');
+        chaptersSection.style.display = 'block';
+        
+        // 平滑滚动到章节列表
+        chaptersSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // 进入下一章节
+    function goToNextChapter() {
+        goToChapter1();
     }
     
     // 事件监听器
