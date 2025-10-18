@@ -90,3 +90,67 @@
     color: #666;
     padding: 0 10px;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .practice-area {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .controls button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        min-width: 120px;
+    }
+
+    .options {
+        gap: 10px;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+
+    .option-btn {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    #status-text {
+        font-size: 1rem;
+    }
+
+    .score-container {
+        font-size: 0.9rem;
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .practice-area {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .controls button {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        min-width: 100px;
+    }
+
+    .options {
+        gap: 8px;
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    }
+
+    .option-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    #status-text {
+        font-size: 0.9rem;
+    }
+
+    .score-container {
+        font-size: 0.8rem;
+    }
+}

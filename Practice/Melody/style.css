@@ -117,3 +117,111 @@
     color: #666;
     padding: 0 10px;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .practice-area {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .controls button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        min-width: 120px;
+    }
+
+    .user-input-display {
+        min-height: 40px;
+        padding: 8px;
+        font-size: 1rem;
+        gap: 6px;
+    }
+
+    .note-tag {
+        padding: 4px 8px;
+        font-size: 0.9rem;
+    }
+
+    .options {
+        gap: 8px;
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        padding: 8px;
+    }
+
+    .option-btn {
+        padding: 12px 8px;
+        font-size: 1rem;
+    }
+
+    .action-buttons {
+        gap: 10px;
+    }
+
+    #submit-btn, #clear-btn {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+
+    #status-text {
+        font-size: 1rem;
+    }
+
+    .score-container {
+        font-size: 0.9rem;
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .practice-area {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .controls button {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        min-width: 100px;
+    }
+
+    .user-input-display {
+        min-height: 35px;
+        padding: 6px;
+        font-size: 0.9rem;
+        gap: 5px;
+    }
+
+    .note-tag {
+        padding: 3px 6px;
+        font-size: 0.8rem;
+    }
+
+    .options {
+        gap: 6px;
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        padding: 6px;
+    }
+
+    .option-btn {
+        padding: 10px 6px;
+        font-size: 0.9rem;
+    }
+
+    .action-buttons {
+        gap: 8px;
+    }
+
+    #submit-btn, #clear-btn {
+        padding: 6px 15px;
+        font-size: 0.8rem;
+    }
+
+    #status-text {
+        font-size: 0.9rem;
+    }
+
+    .score-container {
+        font-size: 0.8rem;
+    }
+}
