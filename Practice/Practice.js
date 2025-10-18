@@ -412,8 +412,8 @@ function loadPreset() {
             {note: 'B4', time: 6}, {note: 'C5', time: 7}
         ];
         const descending = [
-            {note: 'C5', time: 8}, {note: 'A#4', time: 9}, {note: 'G#4', time: 10}, 
-            {note: 'G4', time: 11}, {note: 'F4', time: 12}, {note: 'E4', time: 13}, 
+            {note: 'C5', time: 8}, {note: 'A#4', time: 9}, {note: 'G#4', time: 10},
+            {note: 'G4', time: 11}, {note: 'F4', time: 12}, {note: 'E4', time: 13},
             {note: 'D4', time: 14}, {note: 'C4', time: 15}
         ];
         presetNotes = [...ascending, ...descending];

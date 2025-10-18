@@ -657,7 +657,7 @@ select, input {
     }
 
     .nav-list.nav-active {
-        display: flex; /* 激活时显示 */
+        display: flex !important; /* 激活时显示 */
         transform: translateX(0); /* 激活时滑入 */
     }
     
