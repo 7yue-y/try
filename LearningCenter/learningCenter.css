@@ -31,25 +31,44 @@
     font-size: 1rem;
 }
 
-.start-learning-btn {
-    display: block;
-    margin: 0 auto;
+.preface-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.start-learning-btn, .directory-nav-btn {
     padding: 12px 30px;
-    background: #4a7694;
-    color: white;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 3px 10px rgba(74, 118, 148, 0.3);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.start-learning-btn {
+    background: #4a7694;
+    color: white;
 }
 
 .start-learning-btn:hover {
     background: #3a6684;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(74, 118, 148, 0.4);
+}
+
+.directory-nav-btn {
+    background: #f0f0f0;
+    color: #555;
+    border: 1px solid #d0d0d0;
+}
+
+.directory-nav-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
 }
 
 /* 模态框样式 */

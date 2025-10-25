@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // 获取DOM元素
     const startLearningBtn = document.getElementById('startLearningBtn');
+    const directoryNavBtn = document.getElementById('directoryNavBtn');
     const identityModal = document.getElementById('identityModal');
     const confirmModal = document.getElementById('confirmModal');
     const identityCards = document.querySelectorAll('.identity-card');
@@ -89,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hideConfirmModal();
         
         // 直接跳转到第一章页面
-        window.location.href = '第一章节/chapter1.html';
+        window.location.href = '第一章 循环与网格图/chapter1.html';
     }
     
     // 显示章节列表
@@ -114,6 +115,13 @@ document.addEventListener('DOMContentLoaded', function() {
     startLearningBtn.addEventListener('click', function() {
         // 显示身份选择模态框
         showIdentityModal();
+    });
+
+    directoryNavBtn.addEventListener('click', function() {
+        // 直接显示章节列表
+        const chaptersSection = document.getElementById('chaptersSection');
+        chaptersSection.style.display = 'block';
+        chaptersSection.scrollIntoView({ behavior: 'smooth' });
     });
     
     // 身份卡片点击事件
